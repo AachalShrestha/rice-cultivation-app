@@ -1,0 +1,21 @@
+#viewport {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+#world {
+  width: 1500px;
+  height: 1500px;
+  position: absolute;
+  cursor: grab;
+}
+
+.rice{
+    width: 60px;
+}
+
+.image{
+  width: 30px;
+}

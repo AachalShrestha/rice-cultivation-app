@@ -1,4 +1,4 @@
-
+import gsap from "gsap";
 export default function startAnimation(objects) {
   objects.forEach((obj, i) => {
     const mesh = obj.getObject3D('mesh') || obj.object3D;

@@ -1,6 +1,6 @@
 
 
-import { layer1 } from './scenes/layer-1.js';
+import { layer2 } from './scenes/layer-2.js';
 
 import './animations.js'; 
 
@@ -17,7 +17,7 @@ async function initScene() {
   try {
 
     //for now the scene witht the generated img and model are in scene2
-    layer1(trackedRoot);
+    layer2(trackedRoot);
 
     //animate everytime the marker gets detected
     const tracker = document.getElementById('tracked-root');
