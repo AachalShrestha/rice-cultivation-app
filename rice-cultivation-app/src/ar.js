@@ -1,7 +1,7 @@
 
 
 import { layer2 } from './scenes/layer-2.js';
-
+import { layer1 } from './scenes/layer-1.js';
 import './animations.js'; 
 
 import startAnimation from './animations.js';
