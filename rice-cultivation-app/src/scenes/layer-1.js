@@ -1,6 +1,9 @@
-let PREFIX = "layer1"
+
+
+let PREFIX = "layer1";
 let layer1AssetsLoaded = false;
 let layer1Images = null;
+
 export function layer1(parentEl) {
 
   const imgPositions = [
@@ -9,26 +12,22 @@ export function layer1(parentEl) {
     { x: 0, y: 0, z: 0.4 },
     { x: 0, y: 0, z: 0.8 },
   ];
-  let isActive = true;
+
+  let isActive = false;
   let activeIntervals = [];
-  const assetsDiv = document.querySelector('a-assets');
+
+  const assetsDiv = document.querySelector("a-assets");
 
   const imagePaths = Array.from({ length: 4 }, (_, i) =>
     `/layer1-img/layer1_000${i}.png`
   );
 
-  let staticImages = []; // 👈 IMPORTANT
+  let staticImages = [];
+  const planes = [];
 
-  function destroy() {
-    isActive = false;
-
-    activeIntervals.forEach(clearInterval);
-
-    // remove planes
-   parentEl.querySelectorAll('*').forEach(el => el.remove());
-
-  }
-
+  // ---------------------------
+  // LOAD
+  // ---------------------------
   async function loadImages() {
     const textures = await Promise.all(
       imagePaths.map((src, i) => {
@@ -55,7 +54,10 @@ export function layer1(parentEl) {
     return textures;
   }
 
-  function renderImages(images) {
+  // ---------------------------
+  // RENDER
+  // ---------------------------
+function renderImages(images) {
     images.forEach((imgAsset, i) => {
 
       const pos = imgPositions[i];
@@ -86,12 +88,39 @@ export function layer1(parentEl) {
     });
   }
 
-  async function initScene() {
-    await loadImages();
-    renderImages(staticImages); // 👈 FIXED (NO DOM QUERY)
+  // ---------------------------
+  // START
+  // ---------------------------
+  async function start() {
+    if (isActive) return;
+    isActive = true;
+
+    // prevent double-render
+    if (planes.length > 0) return;
+
+    const images = await loadImages();
+    if (!isActive) return;
+
+    renderImages(images);
   }
 
-  initScene();
+  // ---------------------------
+  // STOP
+  // ---------------------------
+  function stop() {
+    isActive = false;
 
-  return { PREFIX, destroy };
+    activeIntervals.forEach(clearInterval);
+    activeIntervals = [];
+
+    planes.forEach(p => p.remove());
+    planes.length = 0;
+
+    staticImages = [];
+  }
+
+  return {
+    start,
+    stop
+  };
 }

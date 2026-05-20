@@ -6,49 +6,51 @@ import startAnimation from './animations.js';
 
 const trackedRoot = document.querySelector('#tracked-root');
 
+const t0 = document.querySelector("#target0");
+const t1 = document.querySelector("#target1");
+const layer01 = layer1(t0);
+const layer02 = layer2(t1);
+
 let currentScene = null;
+let switching = false;
 
-async function loadScene(sceneFn) {
-  // destroy previous scene safely
-  if(currentScene == sceneFn) return;
-  if (currentScene?.destroy) {
-    currentScene.destroy();
-  }
+let activeScene = null;
 
-  // load new scene
+/* function activate(scene) {
 
+  if (activeScene === scene) return;
 
-  currentScene = await sceneFn(trackedRoot);
-  console.log(currentScene,"yoyoy", sceneFn)
-}
+  // stop previous
+  activeScene?.stop?.();
 
-async function initScene() {
-  const tracker = document.getElementById('tracked-root');
+  // start new
+  activeScene = scene;
+  activeScene.start?.();
+} */
+console.log("start")
+window.addEventListener("DOMContentLoaded", () => {
+  
 
-  await loadScene(layer1);
-
-  tracker.addEventListener("targetFound", () => {
+  console.log("start")
+  t0.addEventListener("targetFound", () => {
+    console.log("target1")
+    layer01.start();
     const objects = document.querySelectorAll('.object');
     startAnimation(objects);
   });
-}
 
-initScene();
-
-window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("scene1Btn")?.addEventListener("click", () => {
-    loadScene(layer1);
-
-  });
-
-  document.getElementById("scene2Btn")?.addEventListener("click", () => {
-    loadScene(layer2);
-  });
-
-  document.getElementById("scene3Btn")?.addEventListener("click", () => {
-    loadScene(layer3);
+  t1.addEventListener("targetFound", () => {
+    console.log("target2")
+    
+    const objects = document.querySelectorAll('.object');
+    startAnimation(objects);
+    layer02.start();
   });
 });
+
+
+
+
 
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("navMenu");

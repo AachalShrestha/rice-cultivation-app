@@ -7,7 +7,8 @@ let layer2Images = null;
 
 export function layer2(parentEl) {
 
-  let isActive = true;
+  let isLoaded = false;
+let isRunning = false;
   let activeIntervals = [];
   let loopPromise = null;
 
@@ -37,42 +38,34 @@ export function layer2(parentEl) {
     (_, i) => `/layer2-img/layer2_000${i}.png`
   );
 
-  // ---------------------------
-  // DESTROY (FULL STOP)
-  // ---------------------------
-  function destroy() {
 
-    destroyToken++;
+  async function start() {
+    if (isRunning) return;
+    isRunning = true;
 
-    isActive = false;
-    
+    const images = await loadImages();
 
-    // 🚨 IMPORTANT: freeze loop BEFORE DOM removal
+    if (!isRunning || !images) return;
+
+    // prevent double rendering
+    if (planes.length === 0) {
+      renderImages(images);
+    }
+
+    startLoop();
+  }
+
+  function stop() {
+    isRunning = false;
     activeIntervals.forEach(clearInterval);
     activeIntervals = [];
-
-    // 🚨 WAIT A FRAME so A-Frame doesn't collide with updates
-    requestAnimationFrame(() => {
-
-      planes.forEach(p => {
-        if (p?.setAttribute) {
-          p.setAttribute("visible", false);
-          p.removeAttribute("animation__texture"); // safety if any
-        }
-        p?.remove();
-      });
-
-      parentEl.innerHTML = "";
-    });
-    console.log(PREFIX, isActive)
-    loopPromise = null;
   }
 
   // ---------------------------
   // LOAD ASSETS (CACHE SAFE)
   // ---------------------------
 async function loadImages() {
-
+  console.log("loading images")
   // ✅ ALWAYS rebuild frame references
   sequences.forEach(seq => {
     animationFrames[seq.id] = [];
@@ -117,7 +110,7 @@ async function loadImages() {
   // RENDER
   // ---------------------------
   function renderImages(images) {
-    isActive = true;
+
     const staticImages = images.slice(0, 4);
 
     staticImages.forEach((imgAsset, i) => {
@@ -126,7 +119,7 @@ async function loadImages() {
       if (!pos) return;
 
       const aspectRatio = imgAsset.naturalWidth / imgAsset.naturalHeight;
-      const width = 1.2;
+      const width = 1.7;
       const height = width / aspectRatio;
 
       const plane = document.createElement("a-image");
@@ -170,7 +163,7 @@ function playSequence(planeIndex, duration, token) {
 
     const interval = setInterval(() => {
 
-      if (!isActive || token !== destroyToken) {
+      if (!isRunning || token !== destroyToken) {
         clearInterval(interval);
         resolve();
         return;
@@ -200,22 +193,20 @@ function playSequence(planeIndex, duration, token) {
   // ---------------------------
   // LOOP (SAFE)
   // ---------------------------
-async function loop(token) {
+  async function loop(token) {
+    while (isRunning) {
+      await playSequence(3, 1000, token);
+      if (!isRunning) break;
 
-  while (isActive) {
+      await playSequence(2, 3000, token);
+      if (!isRunning) break;
 
-    await playSequence(3, 1000, token);
-    if (!isActive) break;
-
-    await playSequence(2, 3000, token);
-    if (!isActive) break;
-
-    await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 500));
+    }
   }
-}
 
   function startLoop() {
-    if (!isActive) return;
+    if (!isRunning) return;
 
     const myToken = destroyToken;
 
@@ -229,16 +220,19 @@ async function loop(token) {
 
     const images = await loadImages();
 
-    if (!images || !isActive) return;
+    if (!images || !isRunning) return;
 
     renderImages(images);
 
-    if (!isActive) return;
+    if (!isRunning) return;
 
-    startLoop();
+    /* startLoop(); */
   }
 
   initScene();
 
-  return { PREFIX, destroy };
+  return {
+  start: start,
+  stop: stop,
+};
 }
