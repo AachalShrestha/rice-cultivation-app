@@ -294,3 +294,111 @@ code {
     border-right-color: var(--border);
   }
 }
+
+.sceneButton, .ui-container {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: auto;
+}
+.nav-hamburger{
+  z-index: 10000;
+}
+
+.ui-container{
+  width: 100vw;
+}
+.nav-hamburger{
+  position: absolute;
+  right: 0;
+}
+.sceneButton{
+  top: 50px;
+}
+
+#scene2Btn{
+  left: 40px;
+}
+
+#scene3Btn{
+  left: 90px;
+}
+
+
+/* HAMBURGER MENU */
+.nav-hamburger {
+  width: 30px;
+  height: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.nav-hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: black;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+/* Active (X state) */
+.nav-hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.nav-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+
+/* NAv menu */
+/* Menu base state (hidden above) */
+.nav-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+
+  background: white;
+
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: all 0.3s ease;
+}
+
+/* Visible state */
+.nav-container.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hamburger animation (same as before) */
+.nav-hamburger span {
+  transition: 0.3s;
+}
+
+.nav-hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.nav-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}

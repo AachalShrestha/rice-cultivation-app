@@ -1,7 +1,5 @@
-let PREFIX = "layer1"
-let layer1AssetsLoaded = false;
-let layer1Images = null;
-export function layer1(parentEl) {
+let PREFIX = "layer3"
+export function layer3(parentEl) {
 
   const imgPositions = [
     { x: 0, y: 0, z: 0.1 },
@@ -14,7 +12,7 @@ export function layer1(parentEl) {
   const assetsDiv = document.querySelector('a-assets');
 
   const imagePaths = Array.from({ length: 4 }, (_, i) =>
-    `/layer1-img/layer1_000${i}.png`
+    `/layer2-img/layer2_000${i}.png`
   );
 
   let staticImages = []; // 👈 IMPORTANT
@@ -35,7 +33,7 @@ export function layer1(parentEl) {
         return new Promise((resolve, reject) => {
           const img = document.createElement('img');
 
-          img.id = `layer1-texture-${i}`;
+          img.id = `layer3-texture-${i}`;
           img.classList.add("image");
           img.src = src;
           img.setAttribute('crossorigin', 'anonymous');

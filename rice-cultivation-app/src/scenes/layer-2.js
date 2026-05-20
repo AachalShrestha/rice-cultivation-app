@@ -1,117 +1,188 @@
-import gsap from "gsap";
 import { createImage } from "../utils";
+
+const PREFIX = "layer2";
+
+let layer2AssetsLoaded = false;
+let layer2Images = null;
 
 export function layer2(parentEl) {
 
-  const planes = []; // ✅ now shared inside everything
+  let isActive = true;
+  let activeIntervals = [];
+  let loopPromise = null;
+
+  // 🔥 CRITICAL: prevents async race conditions
+  let destroyToken = 0;
+
+  const planes = [];
 
   const imgPositions = [
     { x: 0, y: 0, z: 0.1 },
     { x: 0, y: 0, z: 0.3 },
-    { x: 0, y: 0, z: 0.8 },
     { x: 0, y: 0, z: 0.4 },
+    { x: 0, y: 0, z: 0.8 },
   ];
 
   const animationFrames = {};
 
-  const sequences = {
-    3: "/layer2-img/png-sq-2",
-    2: "/layer2-img/png-sq-3"
-  };
+  const sequences = [
+    { id: 2, path: "/layer2-img/png-sq-2", frameCount: 6 },
+    { id: 3, path: "/layer2-img/png-sq-3", frameCount: 7 }
+  ];
 
-  const assetsDiv = document.querySelector('a-assets');
+  const assetsDiv = document.querySelector("a-assets");
 
-  const imageStaticPaths = Array.from({ length: 4 }, (_, i) =>
-    `/layer2-img/layer2_000${i}.png`
+  const imageStaticPaths = Array.from(
+    { length: 4 },
+    (_, i) => `/layer2-img/layer2_000${i}.png`
   );
 
+  // ---------------------------
+  // DESTROY (FULL STOP)
+  // ---------------------------
+  function destroy() {
 
+    destroyToken++;
+
+    isActive = false;
+    
+
+    // 🚨 IMPORTANT: freeze loop BEFORE DOM removal
+    activeIntervals.forEach(clearInterval);
+    activeIntervals = [];
+
+    // 🚨 WAIT A FRAME so A-Frame doesn't collide with updates
+    requestAnimationFrame(() => {
+
+      planes.forEach(p => {
+        if (p?.setAttribute) {
+          p.setAttribute("visible", false);
+          p.removeAttribute("animation__texture"); // safety if any
+        }
+        p?.remove();
+      });
+
+      parentEl.innerHTML = "";
+    });
+    console.log(PREFIX, isActive)
+    loopPromise = null;
+  }
+
+  // ---------------------------
+  // LOAD ASSETS (CACHE SAFE)
+  // ---------------------------
 async function loadImages() {
+
+  // ✅ ALWAYS rebuild frame references
+  sequences.forEach(seq => {
+    animationFrames[seq.id] = [];
+
+    for (let i = 0; i < seq.frameCount; i++) {
+      const id = `${PREFIX}-seq${seq.id}-${i}`;
+      animationFrames[seq.id].push(`#${id}`);
+    }
+  });
+
+  // ✅ THEN handle caching
+  if (layer2AssetsLoaded) return layer2Images;
 
   const promises = [];
 
-  // ✅ 1. static images
   imageStaticPaths.forEach((src, i) => {
-    console.log("assetsDiv:", assetsDiv);
     promises.push(
-      createImage(assetsDiv, `texture-${i}`, src)
+      createImage(assetsDiv, `${PREFIX}-texture-${i}`, src)
     );
   });
 
-  // ✅ 2. sequence images
-  Object.entries(sequences).forEach(([key, folder]) => {
+  sequences.forEach(seq => {
+    for (let i = 0; i < seq.frameCount; i++) {
+      const id = `${PREFIX}-seq${seq.id}-${i}`;
+      const src = `${seq.path}/${String(i).padStart(4, "0")}.png`;
 
-    const frameCount = key == 2 ? 7 : 5; // change to variable on how many images
-
-    animationFrames[key] = [];
-
-    for (let i = 0; i < frameCount; i++) {
-
-      const id = `seq${key}-${i}`;
-      const src = `${folder}/${String(i).padStart(4, "0")}.png`;
-
-      animationFrames[key].push(`#${id}`);
-
-      promises.push(
-        createImage(assetsDiv,id, src)
-      );
-      
+      promises.push(createImage(assetsDiv, id, src));
     }
-    console.log("promise", promises)
   });
 
-  return Promise.all(promises);
+  const myToken = destroyToken;
+
+  layer2Images = await Promise.all(promises);
+
+  if (myToken !== destroyToken) return null;
+
+  layer2AssetsLoaded = true;
+  return layer2Images;
 }
 
-function renderImages(images) {
-  console.log(images)
-  const staticImages = images.slice(0, 4); // CHANGE THE 4 W A VARIABLE, how many img should thre be by default without the seq images?
+  // ---------------------------
+  // RENDER
+  // ---------------------------
+  function renderImages(images) {
+    isActive = true;
+    const staticImages = images.slice(0, 4);
 
-  staticImages.forEach((imgAsset, i) => {
+    staticImages.forEach((imgAsset, i) => {
 
+      const pos = imgPositions[i];
+      if (!pos) return;
 
-    const aspectRatio = imgAsset.naturalWidth / imgAsset.naturalHeight;
-    const width = 1.2;
-    const height = width / aspectRatio;
+      const aspectRatio = imgAsset.naturalWidth / imgAsset.naturalHeight;
+      const width = 1.2;
+      const height = width / aspectRatio;
 
-    const plane = document.createElement('a-image');
+      const plane = document.createElement("a-image");
 
-    plane.setAttribute('src', `#${imgAsset.id}`);
+      plane.setAttribute("src", `#${PREFIX}-texture-${i}`);
+      plane.setAttribute(
+        "position",
+        `${pos.x} ${pos.y} ${pos.z}`
+      );
 
-    plane.setAttribute(
-      'position',
-      `${imgPositions[i].x} ${imgPositions[i].y} ${imgPositions[i].z}`
-    );
+      plane.setAttribute("width", width);
+      plane.setAttribute("height", height);
+      plane.setAttribute("class", "object");
 
-    plane.setAttribute('width', width);
-    plane.setAttribute('height', height);
+      plane.setAttribute(
+        "material",
+        "transparent: true; alphaTest: 0.5; depthWrite: false"
+      );
 
-    plane.setAttribute('class', 'object');
+      planes.push(plane);
+      parentEl.appendChild(plane);
+    });
+  }
 
-    plane.setAttribute(
-      "material",
-      "transparent: true; alphaTest: 0.5; depthWrite: false"
-    );
-
-    planes.push(plane);
-    parentEl.appendChild(plane);
-  });
-}
-
-function playSequence(planeIndex, duration) {
+  // ---------------------------
+  // SEQUENCE
+  // ---------------------------
+function playSequence(planeIndex, duration, token) {
 
   return new Promise(resolve => {
-    console.log(animationFrames, planeIndex)
+
     const frames = animationFrames[planeIndex];
-    console.log(frames)
+    const plane = planes[planeIndex];
+
+    if (!frames || !plane) {
+      resolve();
+      return;
+    }
+
     let i = 0;
 
     const interval = setInterval(() => {
 
-      planes[planeIndex].setAttribute(
-        "src",
-        frames[i]
-      );
+      if (!isActive || token !== destroyToken) {
+        clearInterval(interval);
+        resolve();
+        return;
+      }
+
+      if (!plane || !plane.parentNode) {
+        clearInterval(interval);
+        resolve();
+        return;
+      }
+
+      plane.setAttribute("src", frames[i]);
 
       i++;
 
@@ -121,32 +192,53 @@ function playSequence(planeIndex, duration) {
       }
 
     }, duration / frames.length);
+
+    activeIntervals.push(interval);
   });
 }
 
-  async function loop() {
-    while (true) {
-      //do add a for loop instead for each sequence in sequence object?? so its more dynamic?
-      await playSequence(2, 1000);
-      await playSequence(3, 1000);
+  // ---------------------------
+  // LOOP (SAFE)
+  // ---------------------------
+async function loop(token) {
 
-      await new Promise(r => setTimeout(r, 500));
-    }
+  while (isActive) {
+
+    await playSequence(3, 1000, token);
+    if (!isActive) break;
+
+    await playSequence(2, 3000, token);
+    if (!isActive) break;
+
+    await new Promise(r => setTimeout(r, 500));
   }
-
-  async function initScene() {
-
-    // 1. load static images
-    const images = await loadImages();
-    renderImages(images);
-/*     // 2. build animation sequences
-    animationFrames[2] = loadSequence("/img/sequence2/", 10, "seq2");
-    animationFrames[3] = loadSequence("/img/sequence3/", 8, "seq3");
- */
-    // 3. now everything is ready
-    loop();
 }
 
+  function startLoop() {
+    if (!isActive) return;
+
+    const myToken = destroyToken;
+
+    loopPromise = loop(myToken);
+  }
+
+  // ---------------------------
+  // INIT
+  // ---------------------------
+  async function initScene() {
+
+    const images = await loadImages();
+
+    if (!images || !isActive) return;
+
+    renderImages(images);
+
+    if (!isActive) return;
+
+    startLoop();
+  }
 
   initScene();
+
+  return { PREFIX, destroy };
 }

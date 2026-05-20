@@ -10,20 +10,20 @@
     "daysPlanted": 12,
     "waterPercentage": 68,
     "status": "medium moist",
-    "img":"/meme.webp",
+    "img":"/rice/rice1-1.svg",
     "position": { "x": 50, "y": 140 }
     },
     {
     "id": "",
     "name": "Jasmine Grain A",
     "contributors": [
-    "Aachal",
+    "Dina",
     "Ravi",
     "Mina"
     ],
     "daysPlanted": 12,
     "waterPercentage": 68,
-    "img":"/meme.webp",
+    "img":"/rice/rice1-2.svg",
     "status": "medium moist",
     "position": { "x": 150, "y": 440 }
     },
@@ -31,13 +31,13 @@
     "id": "",
     "name": "Jasmine Grain A",
     "contributors": [
-    "Aachal",
+    "Judith",
     "Ravi",
     "Mina"
     ],
     "daysPlanted": 12,
     "waterPercentage": 68,
-    "img":"/meme.webp",
+    "img":"/rice/rice1-1.svg",
     "status": "medium moist",
     "position": { "x": 650, "y": 40 }
     }
