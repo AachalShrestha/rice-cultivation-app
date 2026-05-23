@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>info page</title>
+    <script src="./src/riceStep.js" type="module"></script>
+</head>
+<body>
+    <a-scene id="mindarScene"
+  mindar-image="imageTargetSrc: ./targets-final.mind;"
+  vr-mode-ui="enabled: false"
+>
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+</a-scene>
+
+
+    <div class="wrapper">
+        <div class="nav"></div>
+        <div class="copy">
+            <div>
+                <div class="days">
+                    <div class="number">
+                        1
+                    </div>
+                    <div>
+                        day 12 - 15
+                    </div>
+                </div>
+                <div class="text" id="conditions">
+
+                </div>
+            </div>
+            <div>
+                <div class="title" id="title">
+
+                </div>
+                <div class="description" id="description">
+
+                </div>
+            </div>
+        </div>
+        <button id="ar-btn">Scan a panel</button>
+    </div>
+</body>
+</html>

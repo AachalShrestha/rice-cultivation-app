@@ -1,0 +1,29 @@
+[ 
+    {
+    "id": "0",
+    "title": "Prepping land",
+    "days": "day 1 - 15",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality."
+
+    },
+    {
+    "id": "1",
+    "title": "Seedling Nursery",
+    "days": "day 15 - 18",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+    "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality."
+    }
+
+
+]
