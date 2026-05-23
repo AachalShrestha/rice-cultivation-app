@@ -6,13 +6,23 @@ let RICE_POSITIONS;
 const CELL_SIZE = 40; // distance between rice
 const OFFSET = 10;    // the checkerboard shift
 const world = document.getElementById("world");
+
+const riceStages = [
+  { maxDay: 31, img: "/rice/rice1-2.svg" },
+  { maxDay: 60, img: "/rice/rice1-2.svg" },
+  { maxDay: 92, img: "/rice/rice1-1.svg" },
+  { maxDay: 122, img: "/rice/rice1-2.svg" },
+  { maxDay: 163, img: "/rice/rice1-1.svg" },
+  { maxDay: 183, img: "/rice/rice1-1.svg" }
+];
+
 init();
 
 function init(){
-  addRice()
+  renderRice()
 }
 
-async function addRice(){
+async function renderRice(){
   const { occupied, riceList } = await loadRice();
   console.log("hello",riceList)
   RICE_POSITIONS = occupied;
@@ -28,7 +38,7 @@ async function addRice(){
 
       el.classList.add("rice");
       el.id = `${grain.row}-${grain.col}`
-      el.src = "/rice/rice1-2.svg";
+      el.src = img;
       
       el.style.position = "absolute";
       el.style.left = x + "px";
@@ -45,7 +55,15 @@ const plantSeedButton = document.getElementById("plant-seed-btn")
 plantSeedButton.addEventListener("click", async () => {
   const name = document.getElementById("nameInput").value;
   const email = document.getElementById("emailInput").value;
+// GET CURRENT DATE FORMATEED
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // months start at 0
+  const year = now.getFullYear();
 
+  const formattedDate = `${year}-${month}-${day}`;
+
+console.log(formattedDate);
   const { row, col } = getRandomFreeCell(RICE_POSITIONS);
   if (!name || !email) return;
   await addGrain({
@@ -55,7 +73,8 @@ plantSeedButton.addEventListener("click", async () => {
     email,
     contributors: [],
     state: "planted",
-    createdAt: Date.now()
+    createdAt: formattedDate,
+    date: new Date()
   });
 
 });
@@ -103,15 +122,24 @@ function getRandomFreeCell(occupied, maxRows = 15, maxCols = 15) {
 
   throw new Error("No free cell found 🌾");
 }
-function getImg(date){
+
+function getImg(startTimestamp) {
   const currentDate = Date.now();
-  const diffMs = currentDate - date;
-  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
-  return diffDays
+  const diffMs = currentDate - startTimestamp;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  console.log("diff days:", diffDays);
+
+  for (let stage of riceStages) {
+    if (diffDays < stage.maxDay) {
+      return stage.img;
+    }
+  }
+
+  // fallback (after full growth)
+  return riceStages[riceStages.length - 1].img;
 }
-
-
 
 
 let isDragging = false;
