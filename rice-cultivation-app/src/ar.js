@@ -13,7 +13,6 @@ const t1 = document.querySelector("#target1");
 const layer01 = layer1(t0);
 const layer02 = layer2(t1);
 let currentTarget;
-let navigating = false;
 let currentScene = null;
 let switching = false;
 
@@ -35,6 +34,7 @@ const scanner = createARScanner(riceSteps, sceneEl, (id) => {
     window.location.href = `/info.html?id=${id}`;
   }, 100);
 });
+
 
 /* riceSteps.forEach((target) => {
   const entity = document.createElement("a-entity");

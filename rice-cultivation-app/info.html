@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <title>info page</title>
+    <link rel="stylesheet" href="./src/style/info.css">
     <script src="./src/riceStep.js" type="module"></script>
 </head>
 <body>
-    <a-scene id="mindarScene"
-  mindar-image="imageTargetSrc: ./targets-final.mind;"
-  vr-mode-ui="enabled: false"
->
-  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-</a-scene>
-
+    <div id="ar-panel" class="ar-panel">
+        <a-scene
+            mindar-image="imageTargetSrc: ./targets-final.mind;"
+            vr-mode-ui="enabled: false"
+            device-orientation-permission-ui="enabled: false"
+            ui-loading="enabled: false"
+            ui-scanning="enabled: false"
+            id="mindarScene"
+        >
+            <a-camera 
+            position="0 0 0" 
+            look-controls="enabled: false"
+            fov="10"
+            ></a-camera>
+        </a-scene>
+        <button class="back-btn" id="back-btn">Cancel</button>
+        <div class="ui-scanning active">
+            <div class="scanning">
+                <div class="inner">
+                <div class="scanline"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="wrapper">
         <div class="nav"></div>
@@ -40,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <button id="ar-btn">Scan a panel</button>
+        <button id="ar-btn" class="ar-btn">Scan a panel</button>
     </div>
 </body>
 </html>
