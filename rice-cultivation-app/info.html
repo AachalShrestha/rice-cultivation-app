@@ -6,6 +6,7 @@
         <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <title>info page</title>
+    <link rel="stylesheet" href="./src/style.css">
     <link rel="stylesheet" href="./src/style/info.css">
     <script src="./src/riceStep.js" type="module"></script>
 </head>
@@ -36,29 +37,39 @@
     </div>
 
     <div class="wrapper">
-        <div class="nav"></div>
+        <div class="nav">
+            <div class="nav">
+                <div class="nav-container" id="navMenu">
+                    <a>Explore AR</a>
+                    <a href="/rice">Grow your rice</a>
+                    <a>About</a>
+                </div>
+            </div>
+        </div>
         <div class="copy">
             <div>
-                <div class="days">
-                    <div class="number">
-                        1
+                <div class="copy1 object">
+                    <div class="number copy1-1" >
+                       <h1 id="number"></h1>
                     </div>
-                    <div>
-                        day 12 - 15
+                    <div class="copy1-2"> 
+                       <p id="days"></p> 
                     </div>
                 </div>
-                <div class="text" id="conditions">
-
+                <div class="copy2 conditions object" id="conditions">
                 </div>
             </div>
-            <div>
-                <div class="title" id="title">
-
+            <div class="copy3 object">
+                <div class="title">
+                    <h1 id="title"></h1>
                 </div>
-                <div class="description" id="description">
-
+                <div class="description">
+                    <p id="description"></p>
                 </div>
             </div>
+        </div>
+        <div class="images">
+
         </div>
         <button id="ar-btn" class="ar-btn">Scan a panel</button>
     </div>

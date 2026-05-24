@@ -2,28 +2,50 @@
     {
     "id": "0",
     "title": "Prepping land",
-    "days": "day 1 - 15",
+    "days": "Day 1 - 15",
     "waterPercentage": 68,
     "conditions":[
         "Water: moist, not flooded",
         "Temperature: warm (20–30°C)",
         "Sunlight: Moderate"
         ],
-     "description": "The land is preppeeeedd"
-
+     "description": "Before planting, the soil is plowed and broken up to improve its structure. It is then levelled to ensure even water distribution across the field. In many regions, fields are intentionally flooded, which helps soften the soil and reduce weed growth. Proper land preparation is essential, as it directly affects how well the rice will grow in later stages.",
+     "images": [
+        { "src": "layer1_0000.png", "style": { "width": "80%", "bottom": "-50px" } },
+        { "src": "layer1_0001.png", "style": { "width": "80%", "right": "0", "bottom": "-40px" } },
+        { "src": "layer1_0002.png", "style": { "width": "70%", "left": "0", "bottom": "0px" } },
+        { "src": "layer1_0003.png", "style": { "width": "20%", "left": "100px", "bottom": "50px" } }
+     ]
     },
     {
     "id": "1",
     "title": "Seedling Nursery",
-    "days": "day 15 - 18",
+    "days": "Day 15 - 18",
     "waterPercentage": 68,
     "conditions":[
         "Water: moist, not flooded",
         "Temperature: warm (20–30°C)",
         "Sunlight: Moderate"
         ],
-    "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality."
+    "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality.",
+    "images": [
+        { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-400px" } },
+        { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-400px" } },
+        { "src": "layer2_0002.png", "style": { "width": "100%", "left": "0", "bottom": "-150px" }, "seq": true },
+        { "src": "layer2_0003.png", "style": { "width": "50%", "right": "60px", "bottom": "50px" }, "seq": true  }
+     ],
+    
+  "animation": [
+        {
+        "type": "timeline",
+        "steps": [
+            { "type": "sequence", "imgIndex": 2, "frames": 6, "duration": 3000, "loop": true },
+            { "type": "sequence", "imgIndex": 3, "frames": 7, "duration": 3000, "loop": true }
+        ]
+        }
+     ]
     }
+    
 
 
 ]

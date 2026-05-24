@@ -1,5 +1,6 @@
 import riceSteps from './assets/rice-steps.json';
 import { createARScanner } from './utils';
+import startAnimation, { createTimelineRunner, stopAllAnimations } from './animations';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -12,33 +13,26 @@ let arSystem;
 let currentTarget;
 let arActive = false;
 
-console.log("id:", id);
-
 const data = riceSteps.find((item) => item.id == Number(id));
 const sceneEl = document.querySelector("a-scene");
 
-console.log(sceneEl);
+const timeline = createTimelineRunner();
 
-// ✅ IMPORTANT: set this BEFORE AR initializes (optional but safe)
 sceneEl.setAttribute("mindar-image", "autoStart: false");
 
-// GET AR system safely
 sceneEl.addEventListener("renderstart", () => {
   arSystem = sceneEl.systems["mindar-image-system"];
-
-  // ❌ REMOVE this line (causes your crash)
-  // arSystem.stop();
 });
 
+/* ---------------- INIT ---------------- */
 function init() {
-  document.querySelector("#title").textContent = data.title;
-  document.querySelector("#description").textContent = data.description;
+  setScene(data);
 }
-
 init();
 
-const scanner = createARScanner(riceSteps, sceneEl, (id) => {
-  if (!arActive) return;              // keep this
+/* ---------------- SCANNER ---------------- */
+createARScanner(riceSteps, sceneEl, (id) => {
+  if (!arActive) return;
   if (currentTarget === id) return;
 
   currentTarget = id;
@@ -49,42 +43,73 @@ const scanner = createARScanner(riceSteps, sceneEl, (id) => {
   setScene(step);
 
   panel.classList.remove("open");
-
   arActive = false;
 
-  if (arSystem) {
-    setTimeout(() => {
-      arSystem.stop();
-    }, 500);
-  }
+  timeline.stop();
+  arSystem?.stop();
 });
 
+/* ---------------- SCENE ---------------- */
 function setScene(step) {
+  stopAllAnimations();
   document.querySelector("#title").textContent = step.title;
   document.querySelector("#description").textContent = step.description;
+  document.querySelector("#number").textContent = +step.id + 1;
+  document.querySelector("#days").textContent = step.days;
+
+  const conditionsDiv = document.querySelector("#conditions");
+  conditionsDiv.innerHTML = "";
+  step.conditions.forEach((c) => {
+    const p = document.createElement("p");
+    p.textContent = c;
+    conditionsDiv.appendChild(p);
+  });
+
+  const imagedDiv = document.querySelector(".images");
+  imagedDiv.innerHTML = "";
+
+  step.images.forEach(imgData => {
+    const img = document.createElement("img");
+
+    img.src = `/layer${step.id}-img/${imgData.src}`;
+    img.classList.add("img", "object");
+
+    Object.assign(img.style, {
+      position: "absolute",
+      ...imgData.style
+    });
+
+    imagedDiv.appendChild(img);
+  });
+
+  const objects = document.querySelectorAll(".object");
+
+  startAnimation(objects);
+
+  /* 🔥 THIS IS THE MISSING PART (your main bug) */
+  if (step.animation) {
+    console.log("animation exists")
+    timeline.run(step.animation, document.querySelector(".images"), step.id);
+  }
 }
 
-// ▶ OPEN AR
+/* ---------------- AR BUTTON ---------------- */
 arBtn.addEventListener("click", () => {
-
   arActive = true;
 
-  if (arSystem) {
-    arSystem.start();
+  arSystem?.start();
 
-      setTimeout(() => {
-      panel.classList.add("open");
-   }, 500);
-  }
+  setTimeout(() => {
+    panel.classList.add("open");
+  }, 300);
 });
 
-// ◀ CLOSE AR
+/* ---------------- BACK ---------------- */
 backBtn.addEventListener("click", () => {
   panel.classList.remove("open");
 
   arActive = false;
 
-  if (arSystem) {
-    arSystem.stop();
-  }
+  timeline.stop();
+  arSystem?.stop();
 });

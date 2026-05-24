@@ -22,6 +22,7 @@
 
   transform: translateX(600px); /* 👈 simpler */
   transition: transform 0.4s ease;
+  z-index: 9000;
 }
 .ar-panel a-scene {
   width: 100% !important;
@@ -121,4 +122,66 @@ a-scene {
     top: 100%;
     opacity: 0.3;
   }
+}
+
+/* PAGE STYLING */
+h1{
+  margin: 0;
+}
+
+#number{
+  font-size: 150px;
+}
+#title{
+  margin-bottom: 20px;
+}
+
+p{
+  font-family:  "Helvetica Neue";
+  font-size: 10pt;
+  line-height: 12pt;
+}
+.copy1-2 {
+  white-space: nowrap; /* 🚀 prevents line break */
+}
+.copy{
+  display: flex;
+  gap: 50px;
+  align-items: baseline;
+   font-family: "Helvetica Neue";
+   position: relative;
+   top: 60px;
+
+  margin: 20px 80px ;
+
+}
+
+.copy > div:last-child {
+  flex: 0 0 60%;
+}
+
+
+
+.copy1{
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+#conditions {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: oblique;
+  margin-top: 6px;
+  font-size: 10pt !important;
+}
+
+.ar-btn{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+
+.img{
+  width: 100%;
 }
