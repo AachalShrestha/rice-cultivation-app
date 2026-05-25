@@ -23,11 +23,9 @@ console.log("start")
 
 const scanner = createARScanner(riceSteps, sceneEl, (id) => {
 
-  if (navigating) return;
   if (currentTarget === id) return;
 
   currentTarget = id;
-  navigating = true;
 
   // small delay prevents double-fire glitches
   setTimeout(() => {

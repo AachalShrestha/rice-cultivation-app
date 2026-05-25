@@ -29,8 +29,8 @@
         ],
     "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality.",
     "images": [
-        { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-400px" } },
-        { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-400px" } },
+        { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-300px" } },
+        { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-450px" } },
         { "src": "layer2_0002.png", "style": { "width": "100%", "left": "0", "bottom": "-150px" }, "seq": true },
         { "src": "layer2_0003.png", "style": { "width": "50%", "right": "60px", "bottom": "50px" }, "seq": true  }
      ],
@@ -43,6 +43,24 @@
             { "type": "sequence", "imgIndex": 3, "frames": 7, "duration": 3000, "loop": true }
         ]
         }
+     ]
+    },
+    {
+    "id": "2",
+    "title": "Transplanting",
+    "days": "Day 1 - 15",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "Once the seedlings are ready, they are carefully removed from the nursery and replanted into flooded fields. Farmers place them in rows with consistent spacing, which allows each plant enough room to grow. This process is often done manually and requires time and precision. Transplanting ensures better control over plant density and contributes to higher yields.",
+     "images": [
+        { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-140px" } },
+        { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-160px" } },
+        { "src": "layer2_0002.png", "style": { "width": "10%", "right": "30%", "bottom": "70px" } },
+        { "src": "layer2_0003.png", "style": { "width": "20%", "right": "100px", "bottom": "30px" } }
      ]
     }
     

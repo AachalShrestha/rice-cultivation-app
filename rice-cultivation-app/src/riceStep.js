@@ -9,6 +9,9 @@ const arBtn = document.getElementById("ar-btn");
 const backBtn = document.getElementById("back-btn");
 const panel = document.getElementById("ar-panel");
 
+let inactivityTimer;
+const TIMEOUT = 60000; // 1 min
+
 let arSystem;
 let currentTarget;
 let arActive = false;
@@ -113,3 +116,20 @@ backBtn.addEventListener("click", () => {
   timeline.stop();
   arSystem?.stop();
 });
+
+
+//check mouse
+function resetTimer() {
+  clearTimeout(inactivityTimer);
+
+  inactivityTimer = setTimeout(() => {
+    window.location = "/";
+  }, TIMEOUT);
+}
+// events that count as "activity"
+["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(event => {
+  document.addEventListener(event, resetTimer);
+});
+
+// start timer on load
+resetTimer();
