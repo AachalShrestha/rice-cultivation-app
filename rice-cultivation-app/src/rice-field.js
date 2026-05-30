@@ -1,6 +1,6 @@
 /* import grains from "./assets/rice-grains.json"; */
 import { db } from "./storage";
-import { loadRice, addGrain, checkEmail } from "./storage";
+import { loadRice, addGrain, checkEmail, plantSeed } from "./storage";
 
 let RICE_POSITIONS;
 const CELL_SIZE = 40; // distance between rice
@@ -105,7 +105,24 @@ async function renderRice(){
           world.appendChild(el);
       });
     }
-//PLANTING NEW SEED
+
+/////////// SIDE PANEL SHOW HIDE //////////
+const plantButton = document.getElementById("plant-btn")
+const plantContainerCross = document.getElementById("plant-container-cross")
+
+const plantContainer = document.getElementById("plant-container")
+plantButton.addEventListener("click", () => {
+  console.log("plantbtn vlicked")
+  plantContainer.classList.add("visible");
+});
+plantContainerCross.addEventListener("click", (e) => {
+    plantContainer.classList.remove("visible");
+
+});
+
+
+
+//////////////PLANTING NEW SEED////////
 const plantSeedButton = document.getElementById("plant-seed-btn")
 
 plantSeedButton.addEventListener("click", async () => {
@@ -132,27 +149,17 @@ plantSeedButton.addEventListener("click", async () => {
       email,
       contributors: [],
       state: "planted",
-      createdAt: formattedDate,
-      date: date
+      createdAt: date,
     });
-
-});
-
-
-
-
-const plantButton = document.getElementById("plant-btn")
-const plantContainerCross = document.getElementById("plant-container-cross")
-
-const plantContainer = document.getElementById("plant-container")
-plantButton.addEventListener("click", () => {
-  console.log("plantbtn vlicked")
-  plantContainer.classList.add("visible");
-});
-plantContainerCross.addEventListener("click", (e) => {
+    await plantSeed(email)
+    console.log("seed planted", name, email)
     plantContainer.classList.remove("visible");
-
 });
+
+
+
+
+
 
 
 

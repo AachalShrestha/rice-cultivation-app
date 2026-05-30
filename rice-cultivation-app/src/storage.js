@@ -66,7 +66,17 @@ export async function checkEmail(email) {
   // true = email already exists
 }
 
+export async function plantSeed(email) {
+  await fetch("/api/plant-seed", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email })
+  });
 
+  console.log("seed planted")
+}
 
 
 
@@ -159,3 +169,4 @@ export async function blobToMeshyModel(blob, text, generatedId) {
     });
   });
 }
+
