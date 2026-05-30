@@ -6,6 +6,7 @@
     <script src="./src/ar.js" type="module"></script>
     <script src="./src/eventListeners.js" type="module"></script>
     <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="./src/style/home.css">
   </head>
   <body>
 
@@ -17,22 +18,21 @@
       device-orientation-permission-ui="enabled: false"
     >
       <a-assets></a-assets>
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-camera position="0 0 0" look-controls="enabled: false" fov="10"></a-camera>
     </a-scene>
     
       <div class="ui-container">
-        <div class="nav">
-          <div class="nav-hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+            <div class="nav" id="nav">
+            <a>EXPLORE AR</a>
+            <a href="/rice">GROW YOUR RICE</a>
+            <a>ABOUT</a>
           </div>
-          <div class="nav-container" id="navMenu">
-            <a>Explore AR</a>
-            <a href="/rice">Grow your rice</a>
-            <a>About</a>
+
+          <div class="copy">
+            <h1>From Seed <br/>to Grain</h1>
+            <p>Rice is part of everyday life. <br/>
+            But how long does it take to grow?</p>
           </div>
-        </div>
       </div> 
 <!--       <button id="scene1Btn" class="sceneButton">scene1</button>
       <button id="scene2Btn" class="sceneButton">scene2</button>
