@@ -32,25 +32,6 @@
   }
 }
 
-@media () {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
 
 body {
   margin: 0;
@@ -100,7 +81,6 @@ a{
 }
 
 .nav{
-  position: fixed;
   right: 40px;
   display: flex;
   gap: 20px;
@@ -111,4 +91,44 @@ a{
   font-size:8pt;
 }
 
+/* 
+BUTTON STYLING */
 
+.rice-btn {
+  border-radius: 90%;
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
+  padding: 10px 25px 10px 25px;
+  z-index: 999;
+}
+
+
+
+
+/* curve on buttons */
+.button-curve {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 14px;
+}
+
+.button-curve path {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+}
+.button-curve path {
+  fill: none;
+  stroke: black;
+  stroke-width: 4; /* 👈 thickness here */
+  stroke-linecap: round;
+}
+
+.grain-name{
+  font-family: var(--heading);
+  font-style: italic;
+}

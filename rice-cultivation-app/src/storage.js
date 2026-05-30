@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore"; 
+import { getFirestore, collection, query, where } from "firebase/firestore";
+import {  addDoc } from "firebase/firestore"; 
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject  } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { doc, setDoc, updateDoc, getDocs} from "firebase/firestore";
@@ -54,7 +54,17 @@ export async function addGrain(rice) {
   }
 }
 
+export async function checkEmail(email) {
+  const q = query(
+    collection(db, "rice-grains"),
+    where("email", "==", email)
+  );
 
+  const snapshot = await getDocs(q);
+
+  return !snapshot.empty; 
+  // true = email already exists
+}
 
 
 

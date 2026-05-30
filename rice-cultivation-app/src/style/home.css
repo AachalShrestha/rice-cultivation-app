@@ -9,6 +9,7 @@ a-scene {
 
 .nav{
     top: 20px;
+    position: fixed;
    
 }
 
