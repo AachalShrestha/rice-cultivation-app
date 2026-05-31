@@ -9,8 +9,8 @@ const OFFSET = 10;    // the checkerboard shift
 const world = document.getElementById("world");
 let camera = {
   x: 0,
-  y: 0,
-  scale: 1
+  y: 20,
+  scale: 1.5
 };
 
 let GRAIN_AMOUNT = 0;
@@ -38,39 +38,54 @@ function init(){
 }
 
 
-async function renderRice(){
+const rendered = new Set();
+
+async function renderRice() {
   const { occupied, riceList } = await loadRice();
-  
 
-  
-  console.log("hello",riceList)
   RICE_POSITIONS = occupied;
-  console.log(RICE_POSITIONS)
-  
-    riceList.forEach((grain) => { 
-      const el = document.createElement("img");
-      const {x, y} = getPosition(grain.row,grain.col)
-      console.log(x,y)
-      const {img, scale}= getImg(grain.createdAt)
-      console.log(img)
 
+  riceList.forEach((grain) => {
+    const key = `${grain.row}-${grain.col}`;
 
-      el.classList.add("rice");
-      el.id = `${grain.row}-${grain.col}`
-      el.src = img;
+    const el = document.createElement("img");
+
+    const { x, y } = getPosition(grain.row, grain.col);
+    const { img, scale } = getImg(grain.createdAt);
+
+    el.classList.add("rice");
+    el.id = key;
+    el.src = img;
+
+    el.style.position = "absolute";
+    el.style.left = x + 100 + "px";
+    el.style.top = y - 50 + "px";
+
+    // 🌱 start small for animation
+    el.style.transform = "scale(0)";
+    el.style.transition = "transform 0.6s ease-out";
+
+    world.appendChild(el);
+
+    // 🌱 grow only NEW rice
+    if (!rendered.has(key)) {
+      requestAnimationFrame(() => {
+        el.style.transform = `scale(${scale})`;
+      });
+    } else {
       el.style.transform = `scale(${scale})`;
-      el.style.position = "absolute";
-      el.style.left = x +100+  "px";
-      el.style.top = y -50+ "px";
-      el.addEventListener("click", (e) => {
+    }
+
+    rendered.add(key);
+
+    // CLICK POPUP
+    el.addEventListener("mouseenter", (e) => {
       e.stopPropagation();
 
       const now = new Date();
       const startDate = new Date(grain.createdAt);
-
       const days = getDaysDifference(startDate, now);
 
-      // 🔁 toggle same grain = close
       if (activeGrain === el) {
         hidePopup();
         return;
@@ -80,44 +95,41 @@ async function renderRice(){
 
       popup.innerHTML = `
         <div class="info-popup">
-            <button class="rice-btn info-patch patch1">
-                Planted by <span class="grain-name">${grain.name}</span>
+          <button class="rice-btn info-patch patch1">
+            Planted by <span class="grain-name">${grain.name}</span>
+            <svg class="button-curve" viewBox="0 0 40 80">
+              <path d="M10 0 Q40 40 10 80" />
+            </svg>
+          </button>
 
-                <svg class="button-curve" viewBox="0 0 40 80">
-                <path d="M10 0 Q40 40 10 80" />
-                </svg>
-            </button>
+          <button class="rice-btn info-patch patch2">
+            ${days} days growing
+            <svg class="button-curve" viewBox="0 0 40 80">
+              <path d="M10 0 Q40 40 10 80" />
+            </svg>
+          </button>
 
-            <button class="rice-btn info-patch patch2">
-                ${days} days growing
-
-                <svg class="button-curve" viewBox="0 0 40 80">
-                <path d="M10 0 Q40 40 10 80" />
-                </svg>
-            </button>
-
-            <button class="rice-btn info-patch patch3">
-                contribute
-
-                <svg class="button-curve" viewBox="0 0 40 80">
-                <path d="M10 0 Q40 40 10 80" />
-                </svg>
-            </button>
-
+          <button class="rice-btn info-patch patch3">
+            contribute
+            <svg class="button-curve" viewBox="0 0 40 80">
+              <path d="M10 0 Q40 40 10 80" />
+            </svg>
+          </button>
         </div>
       `;
-
-      const rect = el.getBoundingClientRect();
 
       popup.style.left = x + 100 + "px";
       popup.style.top = y - 80 + "px";
 
       showPopup();
     });
-          world.appendChild(el);
-      });
-    }
+    el.addEventListener("mouseleave",()=>{
+      hidePopup();
+    })
 
+    world.appendChild(el);
+  });
+}
 /////////// SIDE PANEL SHOW HIDE //////////
 const plantButton = document.getElementById("plant-btn")
 const plantContainerCross = document.getElementById("plant-container-cross")
@@ -129,6 +141,9 @@ plantButton.addEventListener("click", () => {
 });
 plantContainerCross.addEventListener("click", (e) => {
     plantContainer.classList.remove("visible");
+    document.getElementById("nameInput").value = "";
+     document.getElementById("emailInput").value = "";
+  document.getElementById("message").style.color ="white";
 
 });
 
@@ -149,15 +164,19 @@ plantSeedButton.addEventListener("click", async () => {
   const exists = await checkEmail(email);
 
   if (exists) {
+    messageDiv.style.color ="red"
     messageDiv.innerHTML = "You already planted rice!"
     return;
   }
 
   const { row, col } = getRandomFreeCell(RICE_POSITIONS);
   if (!name || !email) {
+    messageDiv.style.color ="red"
     messageDiv.innerHTML = "Please fill in all the fields"
     return;
   }
+    messageDiv.style.color ="black"
+    messageDiv.classList.add("white")
     messageDiv.innerHTML = "Planting seed..."
     await addGrain({
       row,
@@ -170,8 +189,11 @@ plantSeedButton.addEventListener("click", async () => {
     });
     await plantSeed(email, name)
     console.log("seed planted", name, email)
-    plantContainer.classList.remove("visible");
+     messageDiv.style.color ="white"
     renderRice()
+    name.value = "";
+    email.value = ""
+    messageDiv.value = ""
 });
 
 function getNewRice(row, col){

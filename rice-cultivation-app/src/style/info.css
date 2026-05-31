@@ -51,7 +51,7 @@ a-scene {
  .ui-scanning {
   position: absolute;
   inset: 0;
-  left: 0;
+  right: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,6 +80,7 @@ a-scene {
   position: relative;
   width: 100%;
   height: 100%;
+  right: 10vw;
   opacity: 0.85;
 
   background:
@@ -127,6 +128,10 @@ a-scene {
 /* PAGE STYLING */
 h1{
   margin: 0;
+}
+
+.nav{
+  position: absolute;
 }
 
 #number{
@@ -177,11 +182,50 @@ a, p{
 
 .ar-btn{
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  z-index: 1;
+  right: 40px;
+  bottom: 40px;
+  width: 90px;
+  opacity: 0.9;
 }
 
+.ar-btn:hover{
+  opacity: 1;
+}
 
 .img{
   width: 100%;
+}
+
+
+
+
+.plant-container-cross {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: -22vw;
+  top: 30px;
+  cursor: pointer;
+}
+
+/* both lines */
+.plant-container-cross span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 1.5px;
+  background-color: black;
+  transform-origin: center;
+}
+
+/* first line */
+.plant-container-cross span:first-child {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* second line */
+.plant-container-cross span:last-child {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }

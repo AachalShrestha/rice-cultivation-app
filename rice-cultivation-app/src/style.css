@@ -37,6 +37,7 @@ body {
   margin: 0;
 }
 
+
 h1,
 h2 {
   font-family: var(--heading);
@@ -65,7 +66,7 @@ h2 {
 }
 p {
   margin: 0;
-  font-family: "Helvetica Neue", sans-serif;;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 a{
@@ -90,6 +91,8 @@ a{
 .nav a{
   font-size:8pt;
 }
+
+
 
 /* 
 BUTTON STYLING */

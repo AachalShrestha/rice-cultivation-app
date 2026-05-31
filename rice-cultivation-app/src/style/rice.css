@@ -161,8 +161,8 @@ body{
 
 .plant-container-cross{
   position: relative;
-  left: 10px;
-  top: 10px;
+  left: 20px;
+  top: 20px;
 }
 
 .plant-container-cross {
@@ -177,8 +177,8 @@ body{
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 18px;
-  height: 1px;
+  width: 30px;
+  height: 1.5px;
   background-color: black;
   transform-origin: center;
 }
@@ -196,8 +196,11 @@ body{
 
 #message{
   margin: 0;
+  font-size: 7pt;
+  color: white;
 }
 .red{
   color: red;
-  font-size: 7pt;
 }
+
+
