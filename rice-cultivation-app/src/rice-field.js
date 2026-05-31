@@ -151,7 +151,7 @@ plantSeedButton.addEventListener("click", async () => {
       state: "planted",
       createdAt: date,
     });
-    await plantSeed(email)
+    await plantSeed(email, name)
     console.log("seed planted", name, email)
     plantContainer.classList.remove("visible");
 });

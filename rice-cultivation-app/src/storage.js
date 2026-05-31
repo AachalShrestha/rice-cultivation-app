@@ -66,16 +66,23 @@ export async function checkEmail(email) {
   // true = email already exists
 }
 
-export async function plantSeed(email) {
-  await fetch("/api/plant-seed", {
+export async function plantSeed(email, name) {
+  const res = await fetch("http://localhost:3000/api/plant-seed", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ email, name })
   });
+const data = await res.json();
+console.log(data.message); // 👈 this logs your success message
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    console.error("plantSeed failed:", res.status, text);
+    throw new Error("plantSeed failed");
+  }
 
-  console.log("seed planted")
+
 }
 
 

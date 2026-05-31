@@ -55,9 +55,14 @@ body{
   right: 20px;  
 }
 .plant-btn:hover{
-  background-color: #F082AC;
+  background-color: #000000;
+  color: white;
+  transition: 0.3s;
 }
-
+.plant-btn:hover svg path {
+  stroke: white;
+  transition: 0.3s;
+}
 
 .nav{
   position: absolute;
@@ -114,4 +119,26 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 40px;
+}
+
+.input {
+  background-color: transparent;
+  text-decoration: none;
+  border: none;
+  border-bottom: 1px solid black;
+  font-style: "Helvetica Neue", sans-serif;
+  margin-bottom: 15px;
+  color: #000000;
+}
+
+.input:active{
+  border: none;
+  border-bottom: 1px solid green;
+}
+
+
+#plant-seed-btn{
+  position: relative;
+  top: 60px;
 }
