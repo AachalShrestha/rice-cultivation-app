@@ -16,6 +16,8 @@ body{
   position: absolute;
   /* cursor: grab;
   background-color: #EA4C89; */
+    transform-origin: 0 0;
+  will-change: transform;
   
 }
 

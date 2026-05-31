@@ -6,6 +6,11 @@ let RICE_POSITIONS;
 const CELL_SIZE = 40; // distance between rice
 const OFFSET = 10;    // the checkerboard shift
 const world = document.getElementById("world");
+let camera = {
+  x: 0,
+  y: 0,
+  scale: 1
+};
 
 const riceStages = [
   { maxDay: 31, img: "/rice/rice1-2.svg" },
@@ -20,11 +25,15 @@ const riceStages = [
   popup.classList.add("rice-popup");
   world.appendChild(popup);
   let activeGrain = null;
+
 init();
+updateCamera();
+
 
 function init(){
   renderRice()
 }
+
 
 async function renderRice(){
   const { occupied, riceList } = await loadRice();
@@ -227,13 +236,15 @@ function getDaysDifference(date1, date2) {
 
 //DRAGGING SCREEN
 let isDragging = false;
-let startX, startY;
-let offsetX = 0, offsetY = 0;
+let startX = 0;
+let startY = 0;
 
-world.addEventListener("mousedown", (e) => {
+window.addEventListener("mousedown", (e) => {
   isDragging = true;
-  startX = e.clientX - offsetX;
-  startY = e.clientY - offsetY;
+
+  startX = e.clientX - camera.x;
+  startY = e.clientY - camera.y;
+
   world.style.cursor = "grabbing";
 });
 
@@ -245,12 +256,46 @@ window.addEventListener("mouseup", () => {
 window.addEventListener("mousemove", (e) => {
   if (!isDragging) return;
 
-  offsetX = e.clientX - startX;
-  offsetY = e.clientY - startY;
+  camera.x = e.clientX - startX;
+  camera.y = e.clientY - startY;
 
-  world.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+  updateCamera();
 });
 
+window.addEventListener("wheel", (e) => {
+  e.preventDefault();
+
+  const zoomIntensity = 0.001;
+  const scaleChange = 1 - e.deltaY * zoomIntensity;
+
+  const newScale = Math.min(Math.max(camera.scale * scaleChange, 0.3), 3);
+
+  // mouse position
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+
+  // world position before zoom
+  const worldX = (mouseX - camera.x) / camera.scale;
+  const worldY = (mouseY - camera.y) / camera.scale;
+
+  camera.scale = newScale;
+
+  // adjust camera so zoom happens at cursor
+  camera.x = mouseX - worldX * camera.scale;
+  camera.y = mouseY - worldY * camera.scale;
+
+  updateCamera();
+}, { passive: false });
+
+function updateCamera() {
+  world.style.transform = `
+    translate(${camera.x}px, ${camera.y}px)
+    scale(${camera.scale})
+  `;
+}
+
+
+// POPUP
 function showPopup() {
   popup.classList.add("show");
 }
