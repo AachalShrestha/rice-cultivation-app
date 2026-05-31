@@ -1,4 +1,5 @@
 /* import grains from "./assets/rice-grains.json"; */
+import { doc } from "firebase/firestore";
 import { db } from "./storage";
 import { loadRice, addGrain, checkEmail, plantSeed } from "./storage";
 
@@ -12,13 +13,15 @@ let camera = {
   scale: 1
 };
 
+let GRAIN_AMOUNT = 0;
+
 const riceStages = [
-  { maxDay: 31, img: "/rice/rice1-2.svg" },
-  { maxDay: 60, img: "/rice/rice1-2.svg" },
-  { maxDay: 92, img: "/rice/rice1-1.svg" },
-  { maxDay: 122, img: "/rice/rice1-2.svg" },
-  { maxDay: 163, img: "/rice/rice1-1.svg" },
-  { maxDay: 183, img: "/rice/rice1-1.svg" }
+  { maxDay: 31, img: "/rice/SVG/rice1.svg", scale: 0.3 },
+  { maxDay: 60, img: "/rice/SVG/rice2.svg", scale: 0.5 },
+  { maxDay: 92, img: "/rice/SVG/rice3.svg", scale: 0.7 },
+  { maxDay: 122, img: "/rice/SVG/rice4.svg", scale: 0.9 },
+  { maxDay: 163, img: "/rice/SVG/rice5.svg", scale: 1 },
+  { maxDay: 183, img: "/rice/SVG/rice6.svg", scale: 1.2 }
 ];
 
   const popup = document.createElement("div");
@@ -37,7 +40,7 @@ function init(){
 
 async function renderRice(){
   const { occupied, riceList } = await loadRice();
-
+  
 
   
   console.log("hello",riceList)
@@ -48,17 +51,17 @@ async function renderRice(){
       const el = document.createElement("img");
       const {x, y} = getPosition(grain.row,grain.col)
       console.log(x,y)
-      const img = getImg(grain.createdAt)
+      const {img, scale}= getImg(grain.createdAt)
       console.log(img)
 
 
       el.classList.add("rice");
       el.id = `${grain.row}-${grain.col}`
       el.src = img;
-      
+      el.style.transform = `scale(${scale})`;
       el.style.position = "absolute";
-      el.style.left = x + "px";
-      el.style.top = y + "px";
+      el.style.left = x +100+  "px";
+      el.style.top = y -50+ "px";
       el.addEventListener("click", (e) => {
       e.stopPropagation();
 
@@ -106,8 +109,8 @@ async function renderRice(){
 
       const rect = el.getBoundingClientRect();
 
-      popup.style.left = x -20 + "px";
-      popup.style.top = y - 60 + "px";
+      popup.style.left = x + 100 + "px";
+      popup.style.top = y - 80 + "px";
 
       showPopup();
     });
@@ -140,17 +143,22 @@ plantSeedButton.addEventListener("click", async () => {
 // GET CURRENT DATE FORMATEED
   const now = new Date();
   const date = now.toISOString().split("T")[0]; // "2026-05-30"
+  const messageDiv = document.getElementById("message")
   console.log(date)
 
   const exists = await checkEmail(email);
 
   if (exists) {
-    alert("You already planted rice!");
+    messageDiv.innerHTML = "You already planted rice!"
     return;
   }
 
-    const { row, col } = getRandomFreeCell(RICE_POSITIONS);
-    if (!name || !email) return;
+  const { row, col } = getRandomFreeCell(RICE_POSITIONS);
+  if (!name || !email) {
+    messageDiv.innerHTML = "Please fill in all the fields"
+    return;
+  }
+    messageDiv.innerHTML = "Planting seed..."
     await addGrain({
       row,
       col,
@@ -163,8 +171,12 @@ plantSeedButton.addEventListener("click", async () => {
     await plantSeed(email, name)
     console.log("seed planted", name, email)
     plantContainer.classList.remove("visible");
+    renderRice()
 });
 
+function getNewRice(row, col){
+
+}
 
 
 
@@ -208,17 +220,22 @@ function getImg(startTimestamp) {
   const now = new Date();
   const startDate = new Date(startTimestamp); // ✅ convert string → Date
   const diff = getDaysDifference(startDate, now)
-
+  let img;
+  let scale;
 
   console.log("diff days:", diff);
 
   for (let stage of riceStages) {
     if (diff < stage.maxDay) {
-      return stage.img;
+      img = stage.img
+      scale = stage.scale
+      return { img, scale };
+      
     }
   }
 
-  return riceStages[riceStages.length - 1].img;
+  const last = riceStages[riceStages.length - 1];
+return { img: last.img, scale: last.scale };
 }
 
 
