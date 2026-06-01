@@ -190,9 +190,7 @@ plantSeedButton.addEventListener("click", async () => {
     messageDiv.value = ""
 });
 
-function getNewRice(row, col){
 
-}
 
 
 
