@@ -4,13 +4,13 @@ import { db } from "./storage";
 import { loadRice, addGrain, checkEmail, plantSeed } from "./storage";
 
 let RICE_POSITIONS;
-const CELL_SIZE = 40; // distance between rice
+const CELL_SIZE = 70; // distance between rice
 const OFFSET = 10;    // the checkerboard shift
 const world = document.getElementById("world");
 let camera = {
   x: 0,
-  y: 20,
-  scale: 1.5
+  y: 0,
+  scale: 0.6
 };
 
 let GRAIN_AMOUNT = 0;
@@ -44,7 +44,7 @@ async function renderRice() {
   const { occupied, riceList } = await loadRice();
 
   RICE_POSITIONS = occupied;
-
+  console.log(occupied)
   riceList.forEach((grain) => {
     const key = `${grain.row}-${grain.col}`;
 
@@ -58,8 +58,8 @@ async function renderRice() {
     el.src = img;
 
     el.style.position = "absolute";
-    el.style.left = x + 100 + "px";
-    el.style.top = y - 50 + "px";
+    el.style.left = x + "px";
+    el.style.top = y + "px";
 
     // 🌱 start small for animation
     el.style.transform = "scale(0)";
@@ -109,17 +109,11 @@ async function renderRice() {
             </svg>
           </button>
 
-          <button class="rice-btn info-patch patch3">
-            contribute
-            <svg class="button-curve" viewBox="0 0 40 80">
-              <path d="M10 0 Q40 40 10 80" />
-            </svg>
-          </button>
         </div>
       `;
 
-      popup.style.left = x + 100 + "px";
-      popup.style.top = y - 80 + "px";
+      popup.style.left = x - 10 + "px";
+      popup.style.top = y - 40 + "px";
 
       showPopup();
     });
@@ -209,7 +203,7 @@ function getNewRice(row, col){
 
 function getPosition(row, col) {
   let x = col * CELL_SIZE;
-  let y = row * CELL_SIZE;
+  let y = row * (CELL_SIZE*1.1);
 
   // ✨ checkerboard offset
   if (row % 2 === 0) {
