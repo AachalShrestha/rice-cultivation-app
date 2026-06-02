@@ -282,3 +282,16 @@ body{
     max-width: 200px; /* keeps text readable */
   }
 }
+
+/* ZOOM  */
+
+
+.zoom-container{
+  display: flex;
+  position: absolute;
+  font-size: 45pt;
+  bottom: 50px;
+  left: 40px;
+  gap:50px;
+  z-index: 100;
+}

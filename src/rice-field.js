@@ -1,23 +1,39 @@
 /* import grains from "./assets/rice-grains.json"; */
 import { doc } from "firebase/firestore";
 import { db } from "./storage";
-import { loadRice, addGrain, checkEmail, plantSeed } from "./storage";
-import gsap from 'gsap'
+import {
+  loadRice,
+  addGrain,
+  checkEmail,
+  plantSeed,
+} from "./storage";
+import gsap from "gsap";
+
+/* --------------------------------------------------
+   🌾 GLOBAL STATE
+-------------------------------------------------- */
 
 let RICE_POSITIONS;
-const CELL_SIZE = 70; // distance between rice
-const OFFSET = 10;    // the checkerboard shift
+
+const CELL_SIZE = 70;
+const OFFSET = 10;
+
 const world = document.getElementById("world");
+
 let camera = {
   x: 0,
   y: 0,
-  scale: 0.8
+  scale: 0.8,
 };
 
 let inactivityTimer;
 const TIMEOUT = 60000;
 
-let GRAIN_AMOUNT = 0;
+let activeGrain = null;
+
+/* --------------------------------------------------
+   🌱 RICE STAGES
+-------------------------------------------------- */
 
 const riceStages = [
   { maxDay: 31, img: "/rice/SVG/rice1.svg", scale: 0.3 },
@@ -25,61 +41,69 @@ const riceStages = [
   { maxDay: 92, img: "/rice/SVG/rice3.svg", scale: 0.7 },
   { maxDay: 122, img: "/rice/SVG/rice4.svg", scale: 0.9 },
   { maxDay: 163, img: "/rice/SVG/rice5.svg", scale: 1 },
-  { maxDay: 183, img: "/rice/SVG/rice6.svg", scale: 1.2 }
+  { maxDay: 183, img: "/rice/SVG/rice6.svg", scale: 1.2 },
 ];
 
-  const popup = document.createElement("div");
-  popup.classList.add("rice-popup");
-  world.appendChild(popup);
-  let activeGrain = null;
+/* --------------------------------------------------
+   💬 POPUP
+-------------------------------------------------- */
+
+const popup = document.createElement("div");
+popup.classList.add("rice-popup");
+world.appendChild(popup);
+
+/* --------------------------------------------------
+   🚀 INIT
+-------------------------------------------------- */
 
 init();
 updateCamera();
 
-
-function init(){
-  renderRice()
+function init() {
+  renderRice();
 }
 
-
-
+/* --------------------------------------------------
+   🌾 RENDER RICE FIELD
+-------------------------------------------------- */
 
 async function renderRice() {
   const { occupied, riceList } = await loadRice();
 
   RICE_POSITIONS = occupied;
-  console.log(occupied)
+
   riceList.forEach((grain) => {
     const key = `${grain.row}-${grain.col}`;
     if (document.getElementById(key)) return;
 
     const el = document.createElement("img");
-
-    const { x, y } = getPosition(grain.row, grain.col);
-    const { img, scale } = getImg(grain.createdAt);
-
     el.classList.add("rice");
     el.id = key;
-    el.src = img;
+    el.src = getImg(grain.createdAt).img;
+
+    const { x, y } = getPosition(grain.row, grain.col);
+    const { scale } = getImg(grain.createdAt);
 
     el.style.position = "absolute";
     el.style.left = x + "px";
     el.style.top = y + "px";
 
-   // 🌱 animate ONLY new ones
+    // 🌱 animation
     gsap.fromTo(
       el,
       { scale: 0, transformOrigin: "bottom center", y: 20 },
       {
-        scale: scale,
+        scale,
         y: 0,
         duration: 0.8,
         ease: "back.out(2.5)",
       }
     );
 
+    /* -------------------------------
+       🌾 POPUP ON HOVER
+    -------------------------------- */
 
-    // CLICK POPUP
     el.addEventListener("mouseenter", (e) => {
       e.stopPropagation();
 
@@ -98,139 +122,131 @@ async function renderRice() {
         <div class="info-popup">
           <button class="info-patch patch1">
             Planted by <span class="grain-name">${grain.name}</span>
-            <svg class="button-curve" viewBox="0 0 40 80">
-              <path d="M10 0 Q40 40 10 80" />
-            </svg>
           </button>
 
           <button class="info-patch patch2">
             ${days} days growing
-            <svg class="button-curve" viewBox="0 0 40 80">
-              <path d="M10 0 Q40 40 10 80" />
-            </svg>
           </button>
-
         </div>
       `;
 
       popup.style.left = x - 50 + "px";
-      popup.style.top = y  + "px";
+      popup.style.top = y + "px";
 
       showPopup();
     });
-    el.addEventListener("mouseleave",()=>{
-      hidePopup();
-    })
+
+    el.addEventListener("mouseleave", hidePopup);
 
     world.appendChild(el);
   });
 }
-/////////// SIDE PANEL SHOW HIDE //////////
-const plantButton = document.getElementById("plant-btn")
-const plantContainerCross = document.getElementById("plant-container-cross")
 
-const plantContainer = document.getElementById("plant-container")
+/* --------------------------------------------------
+   🌱 PLANT UI
+-------------------------------------------------- */
+
+const plantButton = document.getElementById("plant-btn");
+const plantContainer = document.getElementById("plant-container");
+const plantContainerCross = document.getElementById("plant-container-cross");
+
 plantButton.addEventListener("click", () => {
-  console.log("plantbtn vlicked")
   plantContainer.classList.add("visible");
 });
-plantContainerCross.addEventListener("click", (e) => {
-    plantContainer.classList.remove("visible");
-    emptyInputs();
 
+plantContainerCross.addEventListener("click", () => {
+  plantContainer.classList.remove("visible");
+  emptyInputs();
 });
 
-function emptyInputs (){
+function emptyInputs() {
   document.getElementById("nameInput").value = "";
   document.getElementById("emailInput").value = "";
-  document.getElementById("message").style.color ="white";
+  document.getElementById("message").style.color = "white";
 }
 
+/* --------------------------------------------------
+   🌱 PLANT SEED
+-------------------------------------------------- */
 
-
-//////////////PLANTING NEW SEED////////
-const plantSeedButton = document.getElementById("plant-seed-btn")
+const plantSeedButton = document.getElementById("plant-seed-btn");
 
 plantSeedButton.addEventListener("click", async () => {
   const name = document.getElementById("nameInput").value;
   const email = document.getElementById("emailInput").value;
-  
-// GET CURRENT DATE FORMATEED
+
   const now = new Date();
-  const date = now.toISOString().split("T")[0]; // "2026-05-30"
-  const messageDiv = document.getElementById("message")
-  const confirmDiv = document.getElementById("confirm-message")
-  console.log(date)
+  const date = now.toISOString().split("T")[0];
+
+  const messageDiv = document.getElementById("message");
+  const confirmDiv = document.getElementById("confirm-message");
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    messageDiv.style.color ="red"
-    messageDiv.innerHTML = "Invalid email"
+    messageDiv.style.color = "red";
+    messageDiv.innerHTML = "Invalid email";
     return;
   }
 
   const exists = await checkEmail(email);
   if (exists) {
-    messageDiv.style.color ="red"
-    messageDiv.innerHTML = "You already planted rice!"
+    messageDiv.style.color = "red";
+    messageDiv.innerHTML = "You already planted rice!";
     return;
   }
+
+  if (!name || !email) {
+    messageDiv.style.color = "red";
+    messageDiv.innerHTML = "Please fill in all the fields";
+    return;
+  }
+
+  messageDiv.style.color = "black";
+  messageDiv.innerHTML = "Planting seed...";
 
   const { row, col } = getRandomFreeCell(RICE_POSITIONS);
-  if (!name || !email) {
-    messageDiv.style.color ="red"
-    messageDiv.innerHTML = "Please fill in all the fields"
-    return;
-  }
-    messageDiv.style.color ="black"
-    messageDiv.classList.add("white")
-    messageDiv.innerHTML = "Planting seed..."
-    await addGrain({
-      row,
-      col,
-      name,
-      email,
-      contributors: [],
-      state: "planted",
-      createdAt: date,
-    });
 
-    //SEND EMAIL API
-    await plantSeed(email, name)
-    plantContainer.classList.remove("visible");
-    
-    await showTemporaryMessage(confirmDiv, 3000)
+  await addGrain({
+    row,
+    col,
+    name,
+    email,
+    contributors: [],
+    state: "planted",
+    createdAt: date,
+  });
 
-    console.log("seed planted", name, email)
-     messageDiv.style.color ="white"
-    renderRice();
-    emptyInputs();
+  await plantSeed(email, name);
+
+  plantContainer.classList.remove("visible");
+
+  showTemporaryMessage(confirmDiv, 3000);
+
+  renderRice();
+  emptyInputs();
 });
 
+/* --------------------------------------------------
+   🌾 HELPERS
+-------------------------------------------------- */
 
-async function showTemporaryMessage(element, duration){
+async function showTemporaryMessage(element, duration) {
   element.classList.add("show");
-  setTimeout(()=>{
+
+  setTimeout(() => {
     element.classList.remove("show");
-  }, duration)
+  }, duration);
 }
-
-
 
 function getPosition(row, col) {
   let x = col * CELL_SIZE;
-  let y = row * (CELL_SIZE*1.1);
+  let y = row * (CELL_SIZE * 1.1);
 
-  // ✨ checkerboard offset
-  if (row % 2 === 0) {
-    x += OFFSET;
-  }
+  if (row % 2 === 0) x += OFFSET;
 
   return { x, y };
 }
 
-
 function getRandomFreeCell(occupied, maxRows = 15, maxCols = 15) {
-
   const maxAttempts = 100;
 
   for (let i = 0; i < maxAttempts; i++) {
@@ -249,27 +265,18 @@ function getRandomFreeCell(occupied, maxRows = 15, maxCols = 15) {
 
 function getImg(startTimestamp) {
   const now = new Date();
-  const startDate = new Date(startTimestamp); // ✅ convert string → Date
-  const diff = getDaysDifference(startDate, now)
-  let img;
-  let scale;
-
-  console.log("diff days:", diff);
+  const startDate = new Date(startTimestamp);
+  const diff = getDaysDifference(startDate, now);
 
   for (let stage of riceStages) {
     if (diff < stage.maxDay) {
-      img = stage.img
-      scale = stage.scale
-      return { img, scale };
-      
+      return { img: stage.img, scale: stage.scale };
     }
   }
 
   const last = riceStages[riceStages.length - 1];
-return { img: last.img, scale: last.scale };
+  return { img: last.img, scale: last.scale };
 }
-
-
 
 function getDaysDifference(date1, date2) {
   const d1 = new Date(date1);
@@ -279,51 +286,44 @@ function getDaysDifference(date1, date2) {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
 
+/* --------------------------------------------------
+   🖱️ DRAG + ZOOM
+-------------------------------------------------- */
 
-
-
-//DRAGGING SCREEN
 let isDragging = false;
 let startX = 0;
 let startY = 0;
 
-
+/* TOUCH */
 window.addEventListener("touchstart", (e) => {
   isDragging = true;
+  const t = e.touches[0];
 
-  const touch = e.touches[0];
+  startX = t.clientX - camera.x;
+  startY = t.clientY - camera.y;
+});
 
-  startX = touch.clientX - camera.x;
-  startY = touch.clientY - camera.y;
+window.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+
+  const t = e.touches[0];
+  camera.x = t.clientX - startX;
+  camera.y = t.clientY - startY;
+
+  updateCamera();
 });
 
 window.addEventListener("touchend", () => {
   isDragging = false;
 });
 
-window.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
-
-  const touch = e.touches[0];
-
-  camera.x = touch.clientX - startX;
-  camera.y = touch.clientY - startY;
-
-  updateCamera();
-});
-
+/* MOUSE */
 window.addEventListener("mousedown", (e) => {
   isDragging = true;
-
   startX = e.clientX - camera.x;
   startY = e.clientY - camera.y;
 
   world.style.cursor = "grabbing";
-});
-
-window.addEventListener("mouseup", () => {
-  isDragging = false;
-  world.style.cursor = "grab";
 });
 
 window.addEventListener("mousemove", (e) => {
@@ -335,30 +335,81 @@ window.addEventListener("mousemove", (e) => {
   updateCamera();
 });
 
-window.addEventListener("wheel", (e) => {
-  e.preventDefault();
+window.addEventListener("mouseup", () => {
+  isDragging = false;
+  world.style.cursor = "grab";
+});
 
-  const zoomIntensity = 0.001;
-  const scaleChange = 1 - e.deltaY * zoomIntensity;
+/* WHEEL ZOOM */
+window.addEventListener(
+  "wheel",
+  (e) => {
+    e.preventDefault();
 
-  const newScale = Math.min(Math.max(camera.scale * scaleChange, 0.3), 3);
+    const zoomIntensity = 0.001;
+    const scaleChange = 1 - e.deltaY * zoomIntensity;
 
-  // mouse position
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
+    const newScale = Math.min(
+      Math.max(camera.scale * scaleChange, 0.3),
+      3
+    );
 
-  // world position before zoom
-  const worldX = (mouseX - camera.x) / camera.scale;
-  const worldY = (mouseY - camera.y) / camera.scale;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
 
-  camera.scale = newScale;
+    const worldX = (mouseX - camera.x) / camera.scale;
+    const worldY = (mouseY - camera.y) / camera.scale;
 
-  // adjust camera so zoom happens at cursor
-  camera.x = mouseX - worldX * camera.scale;
-  camera.y = mouseY - worldY * camera.scale;
+    camera.scale = newScale;
 
-  updateCamera();
-}, { passive: false });
+    camera.x = mouseX - worldX * camera.scale;
+    camera.y = mouseY - worldY * camera.scale;
+
+    updateCamera();
+  },
+  { passive: false }
+);
+
+/* BUTTON ZOOM */
+let targetScale = camera.scale;
+let zooming = false;
+
+const zoomIn = document.getElementById("zoom-in");
+const zoomOut = document.getElementById("zoom-out");
+
+zoomIn.addEventListener("click", () => {
+  targetScale = Math.min(targetScale + 0.3, 3);
+  startZoomAnimation();
+});
+
+zoomOut.addEventListener("click", () => {
+  targetScale = Math.max(targetScale - 0.3, 0.3);
+  startZoomAnimation();
+});
+
+function startZoomAnimation() {
+  if (zooming) return;
+  zooming = true;
+
+  function animate() {
+    camera.scale = lerp(camera.scale, targetScale, 0.15);
+    updateCamera();
+
+    if (Math.abs(camera.scale - targetScale) < 0.001) {
+      camera.scale = targetScale;
+      zooming = false;
+      return;
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
 
 function updateCamera() {
   world.style.transform = `
@@ -367,8 +418,10 @@ function updateCamera() {
   `;
 }
 
+/* --------------------------------------------------
+   💬 POPUP CONTROL
+-------------------------------------------------- */
 
-// POPUP
 function showPopup() {
   popup.classList.add("show");
 }
@@ -377,31 +430,31 @@ function hidePopup() {
   popup.classList.remove("show");
   activeGrain = null;
 }
-document.addEventListener("click", () => {
-  hidePopup();
-});
 
+document.addEventListener("click", hidePopup);
 
-//check mouse
+/* --------------------------------------------------
+   ⏳ INACTIVITY RESET
+-------------------------------------------------- */
+
 function resetTimer() {
   clearTimeout(inactivityTimer);
 
   inactivityTimer = setTimeout(() => {
-    console.log("should go back to home page")
     window.location = "/";
   }, TIMEOUT);
 }
-// events that count as "activity"
-["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(event => {
-  document.addEventListener(event, resetTimer);
-});
 
-// start timer on load
+["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(
+  (event) => document.addEventListener(event, resetTimer)
+);
+
 resetTimer();
 
+/* --------------------------------------------------
+   🍔 HAMBURGER MENU
+-------------------------------------------------- */
 
-
-//hamburger
 const hamburger = document.getElementById("hamburger");
 const nav = document.getElementById("nav");
 
