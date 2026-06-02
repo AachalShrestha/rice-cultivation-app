@@ -32,7 +32,7 @@ a-scene {
 }
 
 .nav a{
-     color: white !important;
+     color: white;
 }
 .overlay{
   position: absolute;
@@ -53,10 +53,30 @@ a-scene {
 
 .scan-copy {
   text-align: center;
-  position: relative;
-  bottom: 20px;
-  font-size: 12pt;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16pt;
+  color: white;
 }
 .scan-layer-img{
   width: 15vw;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+
+  .nav {
+    top: 0;
+    color: #000000 !important;
+    z-index: 999;
+  }
+  .nav a {
+    color: #000000;
+  }
+
+
+
+
 }

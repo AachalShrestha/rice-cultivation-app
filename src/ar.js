@@ -32,8 +32,13 @@ const scanner = createARScanner(riceSteps, sceneEl, (id) => {
     window.location.href = `/info.html?id=${id}`;
   }, 100);
 });
+const hamburger = document.getElementById("hamburger");
+const nav = document.getElementById("nav");
 
-
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  nav.classList.toggle("open");
+});
 /* riceSteps.forEach((target) => {
   const entity = document.createElement("a-entity");
 

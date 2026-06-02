@@ -11,8 +11,11 @@ const world = document.getElementById("world");
 let camera = {
   x: 0,
   y: 0,
-  scale: 0.5
+  scale: 0.8
 };
+
+let inactivityTimer;
+const TIMEOUT = 60000;
 
 let GRAIN_AMOUNT = 0;
 
@@ -93,14 +96,14 @@ async function renderRice() {
 
       popup.innerHTML = `
         <div class="info-popup">
-          <button class="rice-btn info-patch patch1">
+          <button class="info-patch patch1">
             Planted by <span class="grain-name">${grain.name}</span>
             <svg class="button-curve" viewBox="0 0 40 80">
               <path d="M10 0 Q40 40 10 80" />
             </svg>
           </button>
 
-          <button class="rice-btn info-patch patch2">
+          <button class="info-patch patch2">
             ${days} days growing
             <svg class="button-curve" viewBox="0 0 40 80">
               <path d="M10 0 Q40 40 10 80" />
@@ -110,8 +113,8 @@ async function renderRice() {
         </div>
       `;
 
-      popup.style.left = x - 10 + "px";
-      popup.style.top = y - 40 + "px";
+      popup.style.left = x - 50 + "px";
+      popup.style.top = y  + "px";
 
       showPopup();
     });
@@ -159,8 +162,13 @@ plantSeedButton.addEventListener("click", async () => {
   const confirmDiv = document.getElementById("confirm-message")
   console.log(date)
 
-  const exists = await checkEmail(email);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    messageDiv.style.color ="red"
+    messageDiv.innerHTML = "Invalid email"
+    return;
+  }
 
+  const exists = await checkEmail(email);
   if (exists) {
     messageDiv.style.color ="red"
     messageDiv.innerHTML = "You already planted rice!"
@@ -205,10 +213,6 @@ async function showTemporaryMessage(element, duration){
     element.classList.remove("show");
   }, duration)
 }
-
-
-
-
 
 
 
@@ -283,6 +287,31 @@ let isDragging = false;
 let startX = 0;
 let startY = 0;
 
+
+window.addEventListener("touchstart", (e) => {
+  isDragging = true;
+
+  const touch = e.touches[0];
+
+  startX = touch.clientX - camera.x;
+  startY = touch.clientY - camera.y;
+});
+
+window.addEventListener("touchend", () => {
+  isDragging = false;
+});
+
+window.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+
+  const touch = e.touches[0];
+
+  camera.x = touch.clientX - startX;
+  camera.y = touch.clientY - startY;
+
+  updateCamera();
+});
+
 window.addEventListener("mousedown", (e) => {
   isDragging = true;
 
@@ -350,4 +379,33 @@ function hidePopup() {
 }
 document.addEventListener("click", () => {
   hidePopup();
+});
+
+
+//check mouse
+function resetTimer() {
+  clearTimeout(inactivityTimer);
+
+  inactivityTimer = setTimeout(() => {
+    console.log("should go back to home page")
+    window.location = "/";
+  }, TIMEOUT);
+}
+// events that count as "activity"
+["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(event => {
+  document.addEventListener(event, resetTimer);
+});
+
+// start timer on load
+resetTimer();
+
+
+
+//hamburger
+const hamburger = document.getElementById("hamburger");
+const nav = document.getElementById("nav");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  nav.classList.toggle("open");
 });

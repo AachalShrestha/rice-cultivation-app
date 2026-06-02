@@ -2,7 +2,10 @@
 
 body{
   margin:0;
+     height: 100%;
+   overflow-y: hidden;
 }
+
 #viewport {
   width: 100vw;
   height: 100vh;
@@ -75,6 +78,7 @@ body{
 .nav{
   position: absolute;
   top: 20px;
+  z-index: 999;
 }
 
 /* POPUP */
@@ -84,29 +88,7 @@ body{
   transform: translateY(10px);
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
-}
-.confirm-message{
-  position: absolute;
-  top: 0;
-  opacity: 0;
-  left: 50%;
-  transform: translate(-20%, 10px);
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  text-align: center;
-  font-size: 10pt;
-  padding: 10px;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 100px;
-}
-.confirm-message p{
-  line-height: 15pt;
-}
-.confirm-message.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  
 }
 
 .rice-popup.show {
@@ -115,23 +97,31 @@ body{
   pointer-events: auto;
 }
 
+
+
 .info-popup{
   z-index: 900;
 }
 
 .info-patch{
   display: inline;
-  font-size: 10px;
+  font-size: 17pt;
+    border-radius: 90%;
+  background-color: transparent;
+  border: 1.5px solid black;
+  color: black;
+  padding: 20px 35px 20px 35px;
+  z-index: 999;
 }
 .patch1{
   transform: rotate(-5deg);
+  right: 100px;
 }
 .patch2{
   position: relative;
-  top: 38px;
-  right: 50px;
+  top: 58px;
+  right: 70px;
   transform: rotate(5deg);
-  font-size: 8px;
 }
 
 
@@ -142,7 +132,31 @@ body{
  font-size: 8px;
 }
 
+/* *****CONFIRM MESSAGE */
 
+.confirm-message{
+  position: absolute;
+  top: 20px;
+  opacity: 0;
+  left: 40%;
+  transform: translate(-50%, 10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  text-align: center;
+  font-size: 8pt;
+  padding: 20px 30px 30px 20px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 80%;
+}
+.confirm-message p{
+  line-height: 12pt;
+}
+.confirm-message.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
 /* SIDE PANEL, PLANT YOUR RICE */
 .plant-input-container{
@@ -227,3 +241,44 @@ body{
 }
 
 
+
+/******************* Info text */
+.info-container{
+  background-color: transparent;
+  background: transparent;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  z-index: -1;
+}
+
+.info-container h1{
+  font-style: italic;
+  margin: 0;
+  font-size: 40pt;
+  background: transparent;
+
+}
+.info-container p{
+  font-size: 12pt;
+}
+
+
+
+/* 📱 Mobile styles */
+@media (max-width: 600px) {
+  .info-container {
+    left: 12px;
+    top: 12px;
+    z-index: 1; /* fix: -1 can hide it behind everything */
+  }
+
+  .info-container h1 {
+    font-size: 20pt; /* smaller title */
+  }
+
+  .info-container p {
+    font-size: 10pt;
+    max-width: 200px; /* keeps text readable */
+  }
+}
