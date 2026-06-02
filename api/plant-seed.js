@@ -40,11 +40,15 @@ export default async function handler(req, res) {
       contactExists = true;
     } catch (err) {
       // If 404 → contact does NOT exist (this is expected)
-      if (err.response?.status === 404) {
-        contactExists = false;
-      } else {
-        throw err;
-      }
+        console.log("BREVO ERROR FULL:", err);
+      console.log("BREVO ERROR DATA:", err.response?.data);
+      console.log("BREVO ERROR MESSAGE:", err.message);
+
+      return res.status(500).json({
+        error: "Email or contact creation failed",
+        details: err.response?.data || err.message
+      });
+    }
     }
 
     // -------------------------------
