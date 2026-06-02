@@ -2,6 +2,7 @@
 import { doc } from "firebase/firestore";
 import { db } from "./storage";
 import { loadRice, addGrain, checkEmail, plantSeed } from "./storage";
+import gsap from 'gsap'
 
 let RICE_POSITIONS;
 const CELL_SIZE = 70; // distance between rice
@@ -10,7 +11,7 @@ const world = document.getElementById("world");
 let camera = {
   x: 0,
   y: 0,
-  scale: 0.6
+  scale: 0.5
 };
 
 let GRAIN_AMOUNT = 0;
@@ -38,7 +39,7 @@ function init(){
 }
 
 
-const rendered = new Set();
+
 
 async function renderRice() {
   const { occupied, riceList } = await loadRice();
@@ -47,6 +48,7 @@ async function renderRice() {
   console.log(occupied)
   riceList.forEach((grain) => {
     const key = `${grain.row}-${grain.col}`;
+    if (document.getElementById(key)) return;
 
     const el = document.createElement("img");
 
@@ -61,22 +63,18 @@ async function renderRice() {
     el.style.left = x + "px";
     el.style.top = y + "px";
 
-    // 🌱 start small for animation
-    el.style.transform = "scale(0)";
-    el.style.transition = "transform 0.6s ease-out";
+   // 🌱 animate ONLY new ones
+    gsap.fromTo(
+      el,
+      { scale: 0, transformOrigin: "bottom center", y: 20 },
+      {
+        scale: scale,
+        y: 0,
+        duration: 0.8,
+        ease: "back.out(2.5)",
+      }
+    );
 
-    world.appendChild(el);
-
-    // 🌱 grow only NEW rice
-    if (!rendered.has(key)) {
-      requestAnimationFrame(() => {
-        el.style.transform = `scale(${scale})`;
-      });
-    } else {
-      el.style.transform = `scale(${scale})`;
-    }
-
-    rendered.add(key);
 
     // CLICK POPUP
     el.addEventListener("mouseenter", (e) => {
@@ -135,11 +133,15 @@ plantButton.addEventListener("click", () => {
 });
 plantContainerCross.addEventListener("click", (e) => {
     plantContainer.classList.remove("visible");
-    document.getElementById("nameInput").value = "";
-     document.getElementById("emailInput").value = "";
-  document.getElementById("message").style.color ="white";
+    emptyInputs();
 
 });
+
+function emptyInputs (){
+  document.getElementById("nameInput").value = "";
+  document.getElementById("emailInput").value = "";
+  document.getElementById("message").style.color ="white";
+}
 
 
 
@@ -149,10 +151,12 @@ const plantSeedButton = document.getElementById("plant-seed-btn")
 plantSeedButton.addEventListener("click", async () => {
   const name = document.getElementById("nameInput").value;
   const email = document.getElementById("emailInput").value;
+  
 // GET CURRENT DATE FORMATEED
   const now = new Date();
   const date = now.toISOString().split("T")[0]; // "2026-05-30"
   const messageDiv = document.getElementById("message")
+  const confirmDiv = document.getElementById("confirm-message")
   console.log(date)
 
   const exists = await checkEmail(email);
@@ -181,17 +185,26 @@ plantSeedButton.addEventListener("click", async () => {
       state: "planted",
       createdAt: date,
     });
-    await plantSeed(email, name)
+
+    //SEND EMAIL API
+    /* await plantSeed(email, name) */
+    plantContainer.classList.remove("visible");
+    
+    await showTemporaryMessage(confirmDiv, 3000)
+
     console.log("seed planted", name, email)
      messageDiv.style.color ="white"
-    renderRice()
-    name.value = "";
-    email.value = ""
-    messageDiv.value = ""
+    renderRice();
+    emptyInputs();
 });
 
 
-
+async function showTemporaryMessage(element, duration){
+  element.classList.add("show");
+  setTimeout(()=>{
+    element.classList.remove("show");
+  }, duration)
+}
 
 
 

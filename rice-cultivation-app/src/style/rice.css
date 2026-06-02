@@ -22,7 +22,7 @@ body{
 }
 
 .rice{
-    height: 150px;
+    height: 200px;
     cursor: pointer;
 }
 /* .rice:hover{
@@ -84,6 +84,23 @@ body{
   transform: translateY(10px);
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.confirm-message{
+    position: absolute;
+    top: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  text-align: center;
+  font-size: 10pt;
+  padding: 20px;
+}
+
+.confirm-message.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .rice-popup.show {

@@ -2,7 +2,7 @@
     {
     "id": "0",
     "title": "Prepping land",
-    "days": "Day 1 - 15",
+    "days": "Day 1 - 14",
     "waterPercentage": 68,
     "conditions":[
         "Water: moist, not flooded",
@@ -20,7 +20,7 @@
     {
     "id": "1",
     "title": "Seedling Nursery",
-    "days": "Day 15 - 18",
+    "days": "Day 14 - 42",
     "waterPercentage": 68,
     "conditions":[
         "Water: moist, not flooded",
@@ -48,7 +48,7 @@
     {
     "id": "2",
     "title": "Transplanting",
-    "days": "Day 1 - 15",
+    "days": "Day 42 - 45",
     "waterPercentage": 68,
     "conditions":[
         "Water: moist, not flooded",
@@ -61,6 +61,43 @@
         { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-160px" } },
         { "src": "layer2_0002.png", "style": { "width": "10%", "right": "30%", "bottom": "70px" } },
         { "src": "layer2_0003.png", "style": { "width": "20%", "right": "100px", "bottom": "30px" } }
+     ]
+    },
+        {
+    "id": "3",
+    "title": "Growth & Care",
+    "days": "Day 45 - 165",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "During this stage, the rice plants grow and develop over several months. Fields remain flooded for much of this period, as rice thrives in wet conditions. Farmers continuously manage water levels, remove weeds, and monitor for pests or diseases. This is one of the longest and most labor-intensive stages, requiring regular attention to ensure healthy crop development.",
+     "images": [
+        { "src": "0000.png", "style": { "width": "100%", "bottom": "-250px" } },
+        { "src": "0001.png", "style": { "width": "100%", "right": "0", "bottom": "-120px" } },
+        { "src": "0002.png", "style": { "width": "8%", "left": "20%", "bottom": "70px" } },
+        { "src": "0003.png", "style": { "width": "9%", "right": "20%", "bottom": "50px" } },
+        { "src": "0004.png", "style": { "width": "10%", "right": "40%", "bottom": "30px" } }
+     ]
+    },
+    {
+    "id": "4",
+    "title": "Harvesting & Threshing",
+    "days": "Day 165–185",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "Once the seedlings are ready, they are carefully removed from the nursery and replanted into flooded fields. Farmers place them in rows with consistent spacing, which allows each plant enough room to grow. This process is often done manually and requires time and precision. Transplanting ensures better control over plant density and contributes to higher yields.",
+     "images": [
+        { "src": "0000.png", "style": { "width": "20%", "bottom": "80px", "right": "10%" } },
+        { "src": "0001.png", "style": { "width": "100%", "right": "0", "bottom": "-160px" } },
+        { "src": "0002.png", "style": { "width": "15%", "left": "10%", "bottom": "70px" } },
+        { "src": "0003.png", "style": { "width": "20%", "right": "30%", "bottom": "0px" } }
      ]
     }
     
