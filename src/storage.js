@@ -70,7 +70,7 @@ export async function checkEmail(email) {
 }
 
 export async function plantSeed(email, name) {
-  const res = await fetch("http://localhost:3000/api/plant-seed", {
+  const res = await fetch("https://rice-cultivation-app.vercel.app/api/plant-seed", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
