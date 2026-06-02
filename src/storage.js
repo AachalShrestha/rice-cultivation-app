@@ -69,25 +69,27 @@ export async function checkEmail(email) {
   // true = email already exists
 }
 
+const API_BASE =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "";
+
 export async function plantSeed(email, name) {
-  const res = await fetch("https://rice-cultivation-app.vercel.app/api/plant-seed", {
+  const res = await fetch(`${API_BASE}/api/plant-seed`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ email, name })
   });
-const data = await res.json();
-console.log(data.message); // 👈 this logs your success message
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    console.error("plantSeed failed:", res.status, text);
-    throw new Error("plantSeed failed");
-  }
 
+  const data = await res.json();
+  console.log(data.message);
 
+  if (!res.ok) throw new Error("plantSeed failed");
+
+  return data;
 }
-
 
 
 /* export async function blobToMeshyModel(blob, text, generatedId) {
