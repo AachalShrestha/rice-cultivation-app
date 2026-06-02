@@ -187,7 +187,7 @@ plantSeedButton.addEventListener("click", async () => {
     });
 
     //SEND EMAIL API
-    /* await plantSeed(email, name) */
+    await plantSeed(email, name)
     plantContainer.classList.remove("visible");
     
     await showTemporaryMessage(confirmDiv, 3000)

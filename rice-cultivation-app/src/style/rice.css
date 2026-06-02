@@ -86,17 +86,23 @@ body{
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 .confirm-message{
-    position: absolute;
-    top: 0;
+  position: absolute;
+  top: 0;
   opacity: 0;
-  transform: translateY(10px);
+  left: 50%;
+  transform: translate(-20%, 10px);
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
   text-align: center;
   font-size: 10pt;
-  padding: 20px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 100px;
 }
-
+.confirm-message p{
+  line-height: 15pt;
+}
 .confirm-message.show {
   opacity: 1;
   transform: translateY(0);

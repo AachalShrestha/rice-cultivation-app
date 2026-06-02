@@ -17,23 +17,23 @@ export function createARScanner(steps, sceneEl, onTargetFound) {
   const entities = [];
   let active = true;
 
-  steps.forEach((target) => {
+  steps.forEach((target, index) => {
 
     const entity = document.createElement("a-entity");
 
     entity.setAttribute(
       "mindar-image-target",
-      `targetIndex: ${target.id}`
+      `targetIndex: ${index}`
     );
 
-    entity.setAttribute("id", `target${target.id}`);
+    entity.setAttribute("id", `target${index}`);
 
     const handler = () => {
       if (!active) return;
 
-      console.log("target found", target.id);
+      console.log("target found", index);
 
-      onTargetFound(target.id);
+      onTargetFound(index);
     };
 
     entity.addEventListener("targetFound", handler);

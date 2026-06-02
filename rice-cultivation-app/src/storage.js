@@ -48,9 +48,12 @@ export async function addGrain(rice) {
   try {
     const docRef = doc(db, "rice-grains", `${rice.row}-${rice.col}`);
     await setDoc(docRef, rice);
-    console.log("✅ rice added", rice);
+
+    return { success: true, data: rice };
+
   } catch (err) {
-    console.error("❌ error adding rice:", err);
+    console.error(err);
+    return { success: false, error: err };
   }
 }
 
