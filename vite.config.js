@@ -10,6 +10,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         rice: resolve(__dirname, 'rice.html'),
         info: resolve(__dirname, 'info.html'),
+        scan: resolve(__dirname, 'scan.html'),
       }
     }
   }
