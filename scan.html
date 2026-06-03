@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="/src/ar.js" type="module"></script>
+    <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="./src/style/home.css">
+  </head>
+  <body>
+
+      <a-scene
+      mindar-image="imageTargetSrc: /targets-final-final.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-assets></a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false" fov="10"></a-camera>
+    </a-scene>
+      <div class="overlay"></div>
+      <div class="ui-container">
+            
+          <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span><span></span>
+          </button>
+
+          <div class="nav" id="nav">
+            <a href="/scan.html">SCAN PANELS</a>
+            <a href="/rice">PLANT YOUR SEED</a>
+            <a href="#">ABOUT</a>
+          </div>
+
+        </div>
+
+          <div class="home-copy">
+            <h1>From Seed <br/>to Grain</h1>
+            <p>Rice is part of everyday life. <br/>
+            But how long does it take to grow?</p>
+          </div>
+          <div class="scan-copy">
+            <img src="/scan-layer-button.png" class="scan-layer-img"/>
+            <p>Scan the first layer to start the experience!</p>
+          </div>
+      </div> 
+<!--       <button id="scene1Btn" class="sceneButton">scene1</button>
+      <button id="scene2Btn" class="sceneButton">scene2</button>
+      <button id="scene3Btn" class="sceneButton">scene3</button> -->
+    </body>
+  </html>

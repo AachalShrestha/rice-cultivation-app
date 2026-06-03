@@ -158,7 +158,7 @@ BUTTON STYLING */
 
 
 /* 📱 MOBILE */
-@media (max-width: 600px) {
+@media (max-width: 840px) {
 
   /* show hamburger */
   .hamburger {

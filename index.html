@@ -1,26 +1,30 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <script src="/src/ar.js" type="module"></script>
-    <link rel="stylesheet" href="./src/style.css">
-    <link rel="stylesheet" href="./src/style/home.css">
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/src/rice-field.js" type="module"></script>
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="/src/style/rice.css">
+    <title>Rice-farm</title>
+</head>
+<body>
+    <div class="btns">
+        <div class="info">
+            <!-- <h1>A shared rice field</h1> -->
+        </div>
+            <button class="rice-btn plant-btn" role="button" id="plant-btn">
+                <p class="plant-btn-inner">
+                Plant your seed
+                </p>
 
-      <a-scene
-      mindar-image="imageTargetSrc: /targets-final-final.mind;"
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-    >
-      <a-assets></a-assets>
-      <a-camera position="0 0 0" look-controls="enabled: false" fov="10"></a-camera>
-    </a-scene>
-      <div class="overlay"></div>
-      <div class="ui-container">
+                <svg class="button-curve" viewBox="0 0 40 80">
+                <path d="M10 0 Q40 40 10 80" />
+                </svg>
+            </button>
+        
+    </div>
+        <div class="ui-container">
             
           <button class="hamburger" id="hamburger">
             <span></span>
@@ -28,25 +32,57 @@
           </button>
 
           <div class="nav" id="nav">
-            <a href="/">SCAN PANELS</a>
-            <a href="/rice.html">PLANT YOUR SEED</a>
+            <a href="/scan.html">SCAN PANELS</a>
+            <a href="/rice">PLANT YOUR SEED</a>
             <a href="#">ABOUT</a>
           </div>
 
         </div>
+        </div>
+            <div class="confirm-message popup" id="confirm-message">
+           <p> 🌱 Your seed has been planted <br/>
+            We’ve sent a confirmation email (check spam if necessary).<br/>
 
-          <div class="home-copy">
-            <h1>From Seed <br/>to Grain</h1>
-            <p>Rice is part of everyday life. <br/>
-            But how long does it take to grow?</p>
-          </div>
-          <div class="scan-copy">
-            <img src="/scan-layer-button.png" class="scan-layer-img"/>
-            <p>Scan the first layer to start the experience!</p>
-          </div>
-      </div> 
-<!--       <button id="scene1Btn" class="sceneButton">scene1</button>
-      <button id="scene2Btn" class="sceneButton">scene2</button>
-      <button id="scene3Btn" class="sceneButton">scene3</button> -->
-    </body>
-  </html>
+            Take a keychain to stay connected with the rice field.
+            </p>
+        </div>
+    <div class="plant-container" id="plant-container">
+        <div class="plant-container-cross" id="plant-container-cross">
+            <span></span>
+             <span></span>
+        </div>
+
+        <div class="plant-input-container">
+            <div class="img"><img src="/rice/rice1-1.svg"></div>
+            <div class="inputs">
+                <input id="nameInput" class="input" placeholder="name" >
+                <input id="emailInput" class="input" placeholder="email" type="email">
+                <p id="message" class="red">default message</p>
+            </div>
+            <button class="button plant-seed-btn plant-btn rice-btn" id="plant-seed-btn">Plant <svg class="button-curve" viewBox="0 0 40 80">
+                <path d="M10 0 Q40 40 10 80" />
+                </svg>
+            </button>
+            </div>
+        </div>
+        
+        <div class="info-container">
+            <h1>The Collective Rice Field</h1>
+            <p>Tap a grain to see who planted it and how it has grown.</p>
+        </div>
+        <div class="zoom-container">
+            <p id="zoom-in" class="btn">+</p>
+            <p id="zoom-out" class="btn">-</p>
+        </div>
+    </div>
+    
+    <div id="viewport">
+        <div id="world">
+        
+        </div>
+        
+    </div>
+    
+    
+</body>
+</html>
