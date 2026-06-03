@@ -231,3 +231,47 @@ a, p{
 }
 
 
+
+.subtle-popup {
+  position: absolute;
+  bottom: 20px;
+  left: 44%;
+  z-index: 1000;
+
+  opacity: 0;
+
+  transform: translate(-80%, 10px); /* ✅ THIS is the key */
+
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 20px;
+
+  text-align: center;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.subtle-popup p{
+  margin-bottom: 10px;
+}
+.button-curve{
+  top: 65%;
+  right: 33px;
+}
+.subtle-popup a:hover{
+  background-color: #000000;
+  color: white;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.subtle-popup a:hover svg path {
+  stroke: white;
+  transition: 0.3s;
+}
+
+
+.subtle-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}

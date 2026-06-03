@@ -140,9 +140,22 @@ BUTTON STYLING */
   font-style: italic;
 }
 
+
+
+
+
+
+.popup p{
+  line-height: 12pt;
+}
+
 .hamburger{
   display: none;
 }
+
+
+
+
 
 /* 📱 MOBILE */
 @media (max-width: 600px) {
@@ -218,3 +231,5 @@ BUTTON STYLING */
     margin: 10px 0;
   }
 }
+
+

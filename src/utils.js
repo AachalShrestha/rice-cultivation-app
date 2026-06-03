@@ -52,3 +52,10 @@ export function createARScanner(steps, sceneEl, onTargetFound) {
     }
   };
 }
+export default async function showTemporaryMessage(element, duration) {
+  element.classList.add("show");
+
+  setTimeout(() => {
+    element.classList.remove("show");
+  }, duration);
+}

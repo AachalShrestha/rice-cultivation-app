@@ -1,6 +1,9 @@
 import riceSteps from './assets/rice-steps.json';
 import { createARScanner } from './utils';
 import startAnimation, { createTimelineRunner, stopAllAnimations } from './animations';
+import showTemporaryMessage from './utils';
+
+import { doc } from 'firebase/firestore';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -8,6 +11,8 @@ const id = params.get("id");
 const arBtn = document.getElementById("ar-btn");
 const backBtn = document.getElementById("back-btn");
 const panel = document.getElementById("ar-panel");
+
+let AMOUNT_LAYERS_SCANNED = 0;
 
 let inactivityTimer;
 const TIMEOUT = 60000; // 1 min
@@ -37,19 +42,25 @@ init();
 createARScanner(riceSteps, sceneEl, (id) => {
   if (!arActive) return;
   if (currentTarget === id) return;
-
+  const subtlePopup = document.getElementById("ricefield-popup")
+  console.log("scanned ", id)
   currentTarget = id;
 
-  const step = riceSteps.find(i => i.id === id);
+  const step = riceSteps.find(i => String(i.id) === String(id));
+  console.log(step)
   if (!step) return;
 
   setScene(step);
+  AMOUNT_LAYERS_SCANNED += 1;
 
   panel.classList.remove("open");
   arActive = false;
 
   timeline.stop();
   arSystem?.stop();
+  if(AMOUNT_LAYERS_SCANNED == 3 ||AMOUNT_LAYERS_SCANNED == 6){
+    showTemporaryMessage(subtlePopup, 4000);
+  }
 });
 
 /* ---------------- SCENE ---------------- */

@@ -149,9 +149,6 @@ body{
   border: 1px solid black;
   border-radius: 80%;
 }
-.confirm-message p{
-  line-height: 12pt;
-}
 .confirm-message.show {
   opacity: 1;
   transform: translateY(0);
@@ -295,3 +292,8 @@ body{
   gap:50px;
   z-index: 100;
 }
+
+.btn{
+  cursor: pointer;
+}
+

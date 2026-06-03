@@ -7,6 +7,7 @@ import {
   checkEmail,
   plantSeed,
 } from "./storage";
+import showTemporaryMessage from "./utils";
 import gsap from "gsap";
 
 /* --------------------------------------------------
@@ -229,13 +230,6 @@ plantSeedButton.addEventListener("click", async () => {
    🌾 HELPERS
 -------------------------------------------------- */
 
-async function showTemporaryMessage(element, duration) {
-  element.classList.add("show");
-
-  setTimeout(() => {
-    element.classList.remove("show");
-  }, duration);
-}
 
 function getPosition(row, col) {
   let x = col * CELL_SIZE;
@@ -437,7 +431,7 @@ document.addEventListener("click", hidePopup);
    ⏳ INACTIVITY RESET
 -------------------------------------------------- */
 
-function resetTimer() {
+/* function resetTimer() {
   clearTimeout(inactivityTimer);
 
   inactivityTimer = setTimeout(() => {
@@ -449,7 +443,7 @@ function resetTimer() {
   (event) => document.addEventListener(event, resetTimer)
 );
 
-resetTimer();
+resetTimer(); */
 
 /* --------------------------------------------------
    🍔 HAMBURGER MENU
