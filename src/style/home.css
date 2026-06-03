@@ -15,7 +15,7 @@ a-scene {
   position: absolute;
   left: 50PX;
   color: white;
-  top: 20px;
+  top: 40px;
 
 }
 .home-copy h1{
@@ -23,10 +23,12 @@ a-scene {
   font-size: 70pt;
   line-height: 70pt;
   font-style: italic;
+  margin-top: 0;
 }
 
 .nav{
-    top: 20px;
+    top: 30px;
+    right: 40px;
     position: fixed;
    
 }

@@ -78,7 +78,7 @@ body{
 
 .nav{
   position: absolute;
-  top: 20px;
+  top: 40px;
   z-index: 999;
 }
 
@@ -245,8 +245,8 @@ body{
   background-color: transparent;
   background: transparent;
   position: relative;
-  left: 20px;
-  top: 20px;
+  left: 50px;
+  top: 40px;
   z-index: -1;
 }
 
