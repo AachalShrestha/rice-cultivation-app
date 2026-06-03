@@ -59,9 +59,9 @@ createARScanner(riceSteps, sceneEl, (id) => {
 
   timeline.stop();
   arSystem?.stop();
-  if(AMOUNT_LAYERS_SCANNED == 3 ||AMOUNT_LAYERS_SCANNED == 6){
-    showTemporaryMessage(subtlePopup, 4000);
-  }
+  if (AMOUNT_LAYERS_SCANNED % 3 === 0) {
+  showTemporaryMessage(subtlePopup, 4000);
+}
 });
 
 /* ---------------- SCENE ---------------- */
@@ -135,7 +135,7 @@ function resetTimer() {
   clearTimeout(inactivityTimer);
 
   inactivityTimer = setTimeout(() => {
-    window.location = "/";
+    window.location = "/scan.html";
   }, TIMEOUT);
 }
 // events that count as "activity"

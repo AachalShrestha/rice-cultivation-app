@@ -22,7 +22,7 @@ const OFFSET = 10;
 const world = document.getElementById("world");
 
 let camera = {
-  x: 0,
+  x: 300,
   y: 0,
   scale: 0.8,
 };
@@ -431,11 +431,11 @@ document.addEventListener("click", hidePopup);
    ⏳ INACTIVITY RESET
 -------------------------------------------------- */
 
-/* function resetTimer() {
+function resetTimer() {
   clearTimeout(inactivityTimer);
 
   inactivityTimer = setTimeout(() => {
-    window.location = "/";
+    window.location = "/scan.html";
   }, TIMEOUT);
 }
 
@@ -443,7 +443,7 @@ document.addEventListener("click", hidePopup);
   (event) => document.addEventListener(event, resetTimer)
 );
 
-resetTimer(); */
+resetTimer();
 
 /* --------------------------------------------------
    🍔 HAMBURGER MENU
