@@ -9,8 +9,11 @@ export default async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Use POST" });
+  const now = new Date();
 
-  const { email, name } = req.body || {};
+  const PLANT_DATE = now.toLocaleDateString("en-GB");
+
+  const { email, name, message } = req.body || {};
   if (!email) return res.status(400).json({ error: "Missing email" });
 
   try {
@@ -37,7 +40,7 @@ export default async function handler(req, res) {
         "https://api.brevo.com/v3/contacts",
         {
           email,
-          attributes: { FIRSTNAME: name || "" },
+          attributes: { FIRSTNAME: name || "", MESSAGE: message, PLANT_DATE: PLANT_DATE},
           listIds: [2]
         },
         {
@@ -57,11 +60,21 @@ export default async function handler(req, res) {
           email: "no-reply@fromseedtograin.online"
         },
         to: [{ email }],
-        subject: "🌱 Your seed has been planted",
+        subject: "🌱 You started growing your rice",
         htmlContent: `
-          <h2>🌱 Your seed has been planted</h2>
+          <h2>🌱 You started growing your rice</h2>
+
           <p>Hi ${name || "farmer"},</p>
-          <p>Your rice seed has entered the digital field.</p>
+
+          <p>Your rice seed has been placed into the field.</p>
+
+          <p>From this moment, it begins its slow process of becoming grain.</p>
+
+          <p>You can return at any time to follow its growth — or let time do its work.</p>
+
+          <br/>
+
+          <p>— From Seed to Grain</p>
         `
       },
       {

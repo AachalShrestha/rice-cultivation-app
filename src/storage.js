@@ -74,13 +74,13 @@ const API_BASE =
     ? "http://localhost:3000"
     : "";
 
-export async function plantSeed(email, name) {
+export async function plantSeed(email, name, message) {
   const res = await fetch(`${API_BASE}/api/plant-seed`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email, name })
+    body: JSON.stringify({ email, name, message})
   });
 
   const data = await res.json();

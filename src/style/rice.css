@@ -187,6 +187,9 @@ body{
   outline: none;
 }
 
+.textarea{
+  min-height: 120px;
+}
 
 #plant-seed-btn{
   position: relative;

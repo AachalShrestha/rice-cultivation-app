@@ -163,6 +163,7 @@ plantContainerCross.addEventListener("click", () => {
 function emptyInputs() {
   document.getElementById("nameInput").value = "";
   document.getElementById("emailInput").value = "";
+  document.getElementById("messageInput").value = "";
   document.getElementById("message").style.color = "white";
 }
 
@@ -175,6 +176,8 @@ const plantSeedButton = document.getElementById("plant-seed-btn");
 plantSeedButton.addEventListener("click", async () => {
   const name = document.getElementById("nameInput").value;
   const email = document.getElementById("emailInput").value;
+  const message = document.getElementById("messageInput").value;
+  console.log(message)
 
   const now = new Date();
   const date = now.toISOString().split("T")[0];
@@ -210,13 +213,14 @@ plantSeedButton.addEventListener("click", async () => {
     row,
     col,
     name,
+    message,
     email,
     contributors: [],
     state: "planted",
     createdAt: date,
   });
 
-  await plantSeed(email, name);
+  await plantSeed(email, name, message);
 
   plantContainer.classList.remove("visible");
 
