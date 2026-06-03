@@ -22,6 +22,7 @@ let currentTarget;
 let arActive = false;
 
 const data = riceSteps.find((item) => item.id == Number(id));
+console.log(data)
 const sceneEl = document.querySelector("a-scene");
 
 const timeline = createTimelineRunner();
@@ -67,10 +68,15 @@ createARScanner(riceSteps, sceneEl, (id) => {
 /* ---------------- SCENE ---------------- */
 function setScene(step) {
   stopAllAnimations();
+  
   document.querySelector("#title").textContent = step.title;
   document.querySelector("#description").textContent = step.description;
-  document.querySelector("#number").textContent = +step.id + 1;
-  document.querySelector("#days").textContent = step.days;
+   if(step.id != 0){
+    console.log(step.id)
+    document.querySelector("#number").textContent = step.id;
+    document.querySelector("#days").textContent = step.days;
+  }
+ 
 
   const conditionsDiv = document.querySelector("#conditions");
   conditionsDiv.innerHTML = "";

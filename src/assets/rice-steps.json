@@ -1,27 +1,25 @@
 [ 
    {
     "id": "0",
-    "title": "RICE is eaten everyday",
-    "days": "Day 1 - 14",
-    "waterPercentage": 68,
-    "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
-        ],
-     "description": "Before planting, the soil is plowed and broken up to improve its structure. It is then levelled to ensure even water distribution across the field. In many regions, fields are intentionally flooded, which helps soften the soil and reduce weed growth. Proper land preparation is essential, as it directly affects how well the rice will grow in later stages.",
+    "title": "Rice",
+    "days": "",
+    "conditions":[],
+     "description": "It is part of everyday life, across cultures and continents. We eat it without thinking, in meals that take only minutes to prepare. But before it reaches our plate, it moves through a much slower process shaped by time, care, and many hands.",
      "images": [
-        { "src": "layer1_0000.png", "style": { "width": "80%", "bottom": "-50px" } },
-        { "src": "layer1_0001.png", "style": { "width": "80%", "right": "0", "bottom": "-40px" } },
-        { "src": "layer1_0002.png", "style": { "width": "70%", "left": "0", "bottom": "0px" } },
-        { "src": "layer1_0003.png", "style": { "width": "20%", "left": "100px", "bottom": "50px" } }
+        { "src": "0000.png", "style": { "width": "30%", "bottom": "-50px" } },
+        { "src": "0001.png", "style": { "width": "30%", "right": "0", "bottom": "-40px" } },
+        { "src": "0002.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
+        { "src": "0003.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
+        { "src": "0004.png", "style": { "width": "30%", "left": "100px", "bottom": "50px" } },
+        { "src": "0005.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
+        { "src": "0006.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
+        { "src": "0007.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } }
      ]
     },
     {
     "id": "1",
     "title": "Prepping land",
     "days": "Day 1 - 14",
-    "waterPercentage": 68,
     "conditions":[
         "Water: moist, not flooded",
         "Temperature: warm (20–30°C)",
@@ -39,12 +37,12 @@
     "id": "2",
     "title": "Seedling Nursery",
     "days": "Day 14 - 42",
-    "waterPercentage": 68,
-    "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
-        ],
+    "conditions": [
+      "Water: shallow, controlled moisture",
+      "Temperature: warm (25–30°C)",
+      "Sunlight: high (not light-sensitive yet)",
+      "Growth: early shoots emerging"
+      ],
     "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality.",
     "images": [
         { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-300px" } },
@@ -67,12 +65,12 @@
     "id": "3",
     "title": "Transplanting",
     "days": "Day 42 - 45",
-    "waterPercentage": 68,
     "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
-        ],
+      "Water: flooded (2–5 cm)",
+      "Temperature: warm (25–30°C)",
+      "Sunlight: high",
+      "Process: seedlings moved to main field"
+      ],
      "description": "Once the seedlings are ready, they are carefully removed from the nursery and replanted into flooded fields. Farmers place them in rows with consistent spacing, which allows each plant enough room to grow. This process is often done manually and requires time and precision. Transplanting ensures better control over plant density and contributes to higher yields.",
      "images": [
         { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-140px" } },
@@ -85,11 +83,11 @@
     "id": "4",
     "title": "Growth & Care",
     "days": "Day 45 - 165",
-    "waterPercentage": 68,
     "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
+      "Water: flooded (5–15 cm)",
+      "Temperature: warm (30–32°C)",
+      "Sunlight: long days (≈12 hours)",
+      "Care: irrigation, nutrients, monitoring"
         ],
      "description": "During this stage, the rice plants grow and develop over several months. Fields remain flooded for much of this period, as rice thrives in wet conditions. Farmers continuously manage water levels, remove weeds, and monitor for pests or diseases. This is one of the longest and most labor-intensive stages, requiring regular attention to ensure healthy crop development.",
      "images": [
@@ -104,12 +102,12 @@
     "id": "5",
     "title": "Harvesting & Threshing",
     "days": "Day 165–185",
-    "waterPercentage": 68,
     "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
-        ],
+      "Water: drained fields",
+      "Temperature: slightly cooler (22–28°C)",
+      "Sunlight: dry conditions preferred",
+      "Process: cutting and separating grains"
+      ],
      "description": "Once the seedlings are ready, they are carefully removed from the nursery and replanted into flooded fields. Farmers place them in rows with consistent spacing, which allows each plant enough room to grow. This process is often done manually and requires time and precision. Transplanting ensures better control over plant density and contributes to higher yields.",
      "images": [
         { "src": "0000.png", "style": { "width": "20%", "bottom": "80px", "right": "10%" } },
@@ -120,13 +118,13 @@
     },
     {
     "id": "6",
-    "title": "Milling & Drying",
-    "days": "Day 165–185",
-    "waterPercentage": 68,
+    "title": "Winnowing & Drying",
+    "days": "Day 165 – 175",
     "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
+         "Water: none (drying stage)",
+         "Temperature: warm and dry",
+         "Sunlight: strong, direct",
+         "Process: separating grain from husk"
         ],
      "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
      "images": [
@@ -138,31 +136,38 @@
     },
     {
     "id": "7",
-    "title": "Milling & Drying",
-    "days": "Day 165–185",
-    "waterPercentage": 68,
+    "title": "Milling & Packaging",
+    "days": "Day 175 – 178",
     "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
+         "Environment: dry, controlled",
+         "Process: husk removed, grains polished",
+         "Output: white or brown rice",
+         "Storage: sealed for transport"
         ],
      "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
      "images": [
-        { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
-        { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
-        { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
+        { "src": "0000.png", "style": { "height": "45%", "width": "auto", "left": "1%", "bottom": "0px"  } },
+        { "src": "0001.png", "style": { "height": "45%", "width": "auto", "left": "14%", "bottom": "0px" } },
+        { "src": "0002.png", "style": { "height": "45%", "width": "auto", "left": "10%", "bottom":"0" } },
+        { "src": "0003.png", "style": { "height": "45%", "width": "auto", "left": "28%", "bottom":"0" } },
+        { "src": "0004.png", "style": { "height": "45%", "width": "auto", "left": "42%", "bottom":"0" } },
+        { "src": "0005.png", "style": { "height": "45%", "width": "auto", "left": "56%", "bottom":"0" } },
+        { "src": "0006.png", "style": { "height": "45%", "width": "auto", "left": "70%", "bottom":"0" } },
+        { "src": "0007.png", "style": { "height": "45%", "width": "auto", "left": "60%", "bottom":"0" } },
+        { "src": "0008.png", "style": { "height": "45%", "width": "auto", "left": "84%", "bottom":"0" } }
+      
 
      ]
     },
     {
     "id": "8",
-    "title": "Milling & Drying",
+    "title": "Distribution & Consumption",
     "days": "Day 165–185",
-    "waterPercentage": 68,
     "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
+         "Transport: trucks, ships, global trade",
+         "Environment: stored and transported dry",
+         "Use: cooking, daily meals",
+         "Time: consumed in minutes"
         ],
      "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
      "images": [

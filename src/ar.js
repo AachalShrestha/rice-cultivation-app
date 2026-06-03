@@ -1,6 +1,3 @@
-import { layer2 } from './scenes/layer-2.js';
-import { layer1 } from './scenes/layer-1.js';
-import { layer3 } from './scenes/layer-3.js';
 import riceSteps from './assets/rice-steps.json'
 import { createARScanner } from './utils.js';
 
