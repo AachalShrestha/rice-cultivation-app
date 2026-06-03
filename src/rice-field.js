@@ -21,6 +21,9 @@ const OFFSET = 10;
 
 const world = document.getElementById("world");
 
+let initialDistance = null;
+let isPinching = false;
+
 let camera = {
   x: 300,
   y: 0,
@@ -294,15 +297,57 @@ let startY = 0;
 
 /* TOUCH */
 window.addEventListener("touchstart", (e) => {
-  isDragging = true;
-  const t = e.touches[0];
+  if (e.touches.length === 1) {
+    // 👉 DRAG
+    isDragging = true;
+    isPinching = false;
 
-  startX = t.clientX - camera.x;
-  startY = t.clientY - camera.y;
+    const t = e.touches[0];
+    startX = t.clientX - camera.x;
+    startY = t.clientY - camera.y;
+
+  } else if (e.touches.length === 2) {
+    // 👉 PINCH START
+    isPinching = true;
+    isDragging = false;
+
+    initialDistance = getDistance(e.touches);
+  }
 });
 
 window.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
+  // 👉 PINCH ZOOM
+  if (e.touches.length === 2 && isPinching) {
+    e.preventDefault();
+
+    const newDistance = getDistance(e.touches);
+    const zoomFactor = newDistance / initialDistance;
+
+    const newScale = Math.min(
+      Math.max(camera.scale * zoomFactor, 0.3),
+      3
+    );
+
+    // zoom toward center between fingers
+    const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+    const worldX = (midX - camera.x) / camera.scale;
+    const worldY = (midY - camera.y) / camera.scale;
+
+    camera.scale = newScale;
+
+    camera.x = midX - worldX * camera.scale;
+    camera.y = midY - worldY * camera.scale;
+
+    initialDistance = newDistance;
+
+    updateCamera();
+    return;
+  }
+
+  // 👉 DRAG
+  if (!isDragging || e.touches.length !== 1) return;
 
   const t = e.touches[0];
   camera.x = t.clientX - startX;
@@ -313,8 +358,15 @@ window.addEventListener("touchmove", (e) => {
 
 window.addEventListener("touchend", () => {
   isDragging = false;
+  isPinching = false;
+  initialDistance = null;
 });
 
+function getDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
 /* MOUSE */
 window.addEventListener("mousedown", (e) => {
   isDragging = true;

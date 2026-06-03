@@ -74,7 +74,7 @@ export default async function handler(req, res) {
 
           <br/>
 
-          <p>— From Seed to Grain</p>
+          <p>— From Seed to Grain, by Aachal Shrestha</p>
         `
       },
       {
