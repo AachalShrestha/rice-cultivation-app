@@ -1,7 +1,7 @@
 [ 
-    {
+   {
     "id": "0",
-    "title": "Prepping land",
+    "title": "RICE is eaten everyday",
     "days": "Day 1 - 14",
     "waterPercentage": 68,
     "conditions":[
@@ -19,6 +19,24 @@
     },
     {
     "id": "1",
+    "title": "Prepping land",
+    "days": "Day 1 - 14",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "Before planting, the soil is plowed and broken up to improve its structure. It is then levelled to ensure even water distribution across the field. In many regions, fields are intentionally flooded, which helps soften the soil and reduce weed growth. Proper land preparation is essential, as it directly affects how well the rice will grow in later stages.",
+     "images": [
+        { "src": "layer1_0000.png", "style": { "width": "80%", "bottom": "-50px" } },
+        { "src": "layer1_0001.png", "style": { "width": "80%", "right": "0", "bottom": "-40px" } },
+        { "src": "layer1_0002.png", "style": { "width": "70%", "left": "0", "bottom": "0px" } },
+        { "src": "layer1_0003.png", "style": { "width": "20%", "left": "100px", "bottom": "50px" } }
+     ]
+    },
+    {
+    "id": "2",
     "title": "Seedling Nursery",
     "days": "Day 14 - 42",
     "waterPercentage": 68,
@@ -46,7 +64,7 @@
      ]
     },
     {
-    "id": "2",
+    "id": "3",
     "title": "Transplanting",
     "days": "Day 42 - 45",
     "waterPercentage": 68,
@@ -64,7 +82,7 @@
      ]
     },
         {
-    "id": "3",
+    "id": "4",
     "title": "Growth & Care",
     "days": "Day 45 - 165",
     "waterPercentage": 68,
@@ -83,7 +101,7 @@
      ]
     },
     {
-    "id": "4",
+    "id": "5",
     "title": "Harvesting & Threshing",
     "days": "Day 165–185",
     "waterPercentage": 68,
@@ -98,24 +116,6 @@
         { "src": "0001.png", "style": { "width": "100%", "right": "0", "bottom": "-160px" } },
         { "src": "0002.png", "style": { "width": "15%", "left": "10%", "bottom": "70px" } },
         { "src": "0003.png", "style": { "width": "20%", "right": "30%", "bottom": "0px" } }
-     ]
-    },
-    {
-    "id": "5",
-    "title": "Milling & Drying",
-    "days": "Day 165–185",
-    "waterPercentage": 68,
-    "conditions":[
-        "Water: moist, not flooded",
-        "Temperature: warm (20–30°C)",
-        "Sunlight: Moderate"
-        ],
-     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
-     "images": [
-        { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
-        { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
-        { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
-
      ]
     },
     {

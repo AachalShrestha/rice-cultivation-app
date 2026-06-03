@@ -25,7 +25,7 @@ let initialDistance = null;
 let isPinching = false;
 
 let camera = {
-  x: 300,
+  x:-20,
   y: 0,
   scale: 0.8,
 };
