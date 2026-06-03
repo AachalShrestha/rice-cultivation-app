@@ -5,10 +5,7 @@ import startAnimation from './animations.js';
 
 const trackedRoot = document.querySelector('#tracked-root');
 
-const t0 = document.querySelector("#target0");
-const t1 = document.querySelector("#target1");
-const layer01 = layer1(t0);
-const layer02 = layer2(t1);
+
 let currentTarget;
 let currentScene = null;
 let switching = false;

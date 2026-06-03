@@ -226,17 +226,20 @@ plantSeedButton.addEventListener("click", async () => {
   await plantSeed(email, name, message);
 
   plantContainer.classList.remove("visible");
+  
+  
 
   showTemporaryMessage(confirmDiv, 3000);
 
   renderRice();
+  const {x, y }= getPosition(row, col);
+  focusOn(x, y+200)
   emptyInputs();
 });
 
 /* --------------------------------------------------
    🌾 HELPERS
 -------------------------------------------------- */
-
 
 function getPosition(row, col) {
   let x = col * CELL_SIZE;
@@ -466,6 +469,24 @@ function updateCamera() {
     translate(${camera.x}px, ${camera.y}px)
     scale(${camera.scale})
   `;
+}
+
+
+function focusOn(x, y, targetScale = 1.5) {
+  const screenCenterX = window.innerWidth / 2;
+  const screenCenterY = window.innerHeight / 2;
+
+  const targetX = screenCenterX - x * targetScale;
+  const targetY = screenCenterY - y * targetScale;
+
+  gsap.to(camera, {
+    x: targetX,
+    y: targetY,
+    scale: targetScale,
+    duration: 1,
+    ease: "power3.inOut",
+    onUpdate: updateCamera
+  });
 }
 
 /* --------------------------------------------------

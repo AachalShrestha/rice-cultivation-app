@@ -60,3 +60,5 @@ export default async function showTemporaryMessage(element, duration) {
     element.classList.remove("show");
   }, duration);
 }
+
+
