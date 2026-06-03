@@ -18,6 +18,7 @@ export function createARScanner(steps, sceneEl, onTargetFound) {
   let active = true;
 
   steps.forEach((target, index) => {
+    console.log(target);
 
     const entity = document.createElement("a-entity");
 

@@ -117,6 +117,60 @@
         { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
 
      ]
+    },
+    {
+    "id": "6",
+    "title": "Milling & Drying",
+    "days": "Day 165–185",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
+     "images": [
+        { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
+        { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
+        { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
+
+     ]
+    },
+    {
+    "id": "7",
+    "title": "Milling & Drying",
+    "days": "Day 165–185",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
+     "images": [
+        { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
+        { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
+        { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
+
+     ]
+    },
+    {
+    "id": "8",
+    "title": "Milling & Drying",
+    "days": "Day 165–185",
+    "waterPercentage": 68,
+    "conditions":[
+        "Water: moist, not flooded",
+        "Temperature: warm (20–30°C)",
+        "Sunlight: Moderate"
+        ],
+     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
+     "images": [
+        { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
+        { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
+        { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
+
+     ]
     }
     
 

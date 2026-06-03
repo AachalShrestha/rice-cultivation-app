@@ -40,6 +40,7 @@ init();
 
 /* ---------------- SCANNER ---------------- */
 createARScanner(riceSteps, sceneEl, (id) => {
+  console.log("creating step")
   if (!arActive) return;
   if (currentTarget === id) return;
   const subtlePopup = document.getElementById("ricefield-popup")
@@ -47,7 +48,7 @@ createARScanner(riceSteps, sceneEl, (id) => {
   currentTarget = id;
 
   const step = riceSteps.find(i => String(i.id) === String(id));
-  console.log(step)
+  
   if (!step) return;
 
   setScene(step);
