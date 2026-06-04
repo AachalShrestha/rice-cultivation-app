@@ -56,7 +56,7 @@ a-scene {
 .scan-copy {
   text-align: center;
   position: absolute;
-  top: 50%;
+  top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 16pt;
@@ -64,6 +64,7 @@ a-scene {
 }
 .scan-layer-img{
   width: 15vw;
+  padding-bottom: 10px;
 }
 
 /* 📱 MOBILE */
