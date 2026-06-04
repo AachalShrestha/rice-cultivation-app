@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
-
+:root{
+  --bottom: 40px; 
+  --rightLeft: 30px;
+}
 html, body {
   margin: 0;
   padding: 0;
@@ -64,8 +67,8 @@ html, body {
 /* CSS */
 #plant-btn{
   position: absolute;
-  bottom: 30px;
-  right: 30px;  
+  bottom: var(--bottom);
+  right: var(--rightLeft);  
   font-size: 12pt;
 }
 .plant-btn:hover{
@@ -298,8 +301,8 @@ html, body {
   position: absolute;
   font-size: 30px;
   font-family: "Helvetica Neue", sans-serif;
-  bottom: 50px;
-  left: 40px;
+  bottom: var(--bottom);
+  left: var(--rightLeft);
   gap:20px;
 
   z-index: 100;

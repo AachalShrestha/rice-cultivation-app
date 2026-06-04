@@ -1,0 +1,27 @@
+.wrapper{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 50px;
+
+}
+.copy{
+    position: relative;
+    top: 100px;
+    max-width: 700px;
+    margin: 0 20px 50px 20px;
+
+}
+
+@media (max-width: 800px){
+    .copy{
+
+        top: 60px;
+
+
+    }
+
+}
