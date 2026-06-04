@@ -67,34 +67,44 @@ createARScanner(riceSteps, sceneEl, (id) => {
 
 /* ---------------- SCENE ---------------- */
 function setScene(step) {
+  const isIntro = step.id == 0;
+  const titleEl = document.querySelector("#title");
+  const descEl = document.querySelector("#description");
+  const numberEl = document.querySelector("#number");
+  const daysEl = document.querySelector("#days");
+  const copyEl = document.querySelector(".copy");
+  const conditionsDiv = document.querySelector("#conditions");
+  const imagesDiv = document.querySelector(".images");
   stopAllAnimations();
   console.log(step)
-  document.querySelector("#title").textContent = step.title;
-  document.querySelector("#description").textContent = step.description;
-   if(step.id != 0){
-    console.log(step.id)
-    document.querySelector("#number").textContent = step.id;
-    document.querySelector("#days").textContent = step.days;
-    document.querySelector(".copy").style.left= "40px";
-    document.getElementById("title").style.fontSize = "56px";
-    document.getElementById("title").style.marginBottom = "20px";
+// -------------------
+  // TEXT CONTENT
+  // -------------------
+  titleEl.textContent = step.title;
+  descEl.textContent = step.description;
 
-  }
-  if(step.id == 0){
-    document.querySelector(".copy").style.left= "200px";
-    document.getElementById("title").style.fontSize = "90pt";
-    document.getElementById("title").style.marginBottom = "40px";
-  }
-  
- 
+  numberEl.textContent = isIntro ? "" : step.id;
+  daysEl.textContent = isIntro ? "" : step.days;
 
-  const conditionsDiv = document.querySelector("#conditions");
+  // -------------------
+  // LAYOUT STYLES
+  // -------------------
+  copyEl.style.left = isIntro ? "200px" : "40px";
+
+  titleEl.style.fontSize = isIntro ? "90pt" : "56px";
+  titleEl.style.marginBottom = isIntro ? "40px" : "20px";
+
+  // -------------------
+  // CONDITIONS
+  // -------------------
   conditionsDiv.innerHTML = "";
   step.conditions.forEach((c) => {
     const p = document.createElement("p");
     p.textContent = c;
     conditionsDiv.appendChild(p);
   });
+  
+ 
 
   const imagedDiv = document.querySelector(".images");
   imagedDiv.innerHTML = "";
