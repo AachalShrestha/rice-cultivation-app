@@ -7,6 +7,7 @@
 .ar-btn{
     position: relative;
     z-index: 9999;
+    cursor: pointer;
 }
 .back-btn{
   position: relative;
@@ -150,6 +151,7 @@ a, p{
   white-space: nowrap; /* 🚀 prevents line break */
 }
 .copy{
+  position: relative;
   display: flex;
   gap: 50px;
   align-items: baseline;
@@ -162,7 +164,7 @@ a, p{
 }
 
 .copy > div:last-child {
-  flex: 0 0 60%;
+  flex: 0 0 50%;
 }
 
 
@@ -173,6 +175,11 @@ a, p{
   gap: 10px;
 }
   
+#description {
+  white-space: pre-line;
+}
+
+
 #conditions {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: oblique;
@@ -185,7 +192,7 @@ a, p{
   z-index: 1;
   right: 40px;
   bottom: 40px;
-  width: 90px;
+  width: 100px;
   opacity: 0.9;
 }
 

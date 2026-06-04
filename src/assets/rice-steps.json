@@ -6,14 +6,14 @@
     "conditions":[],
      "description": "It is part of everyday life, across cultures and continents. We eat it without thinking, in meals that take only minutes to prepare. But before it reaches our plate, it moves through a much slower process shaped by time, care, and many hands.",
      "images": [
-        { "src": "0000.png", "style": { "width": "30%", "bottom": "-50px" } },
-        { "src": "0001.png", "style": { "width": "30%", "right": "0", "bottom": "-40px" } },
-        { "src": "0002.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
-        { "src": "0003.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
-        { "src": "0004.png", "style": { "width": "30%", "left": "100px", "bottom": "50px" } },
-        { "src": "0005.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
-        { "src": "0006.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } },
-        { "src": "0007.png", "style": { "width": "30%", "left": "0", "bottom": "0px" } }
+        { "src": "0000.png", "style": { "width": "15%", "left": "3%", "bottom": "60vh"} },
+        { "src": "0001.png", "style": { "width": "20%", "left": "80%", "bottom": "50vh" } },
+        { "src": "0002.png", "style": { "width": "15%", "left": "35%", "bottom": "220px" } },
+        { "src": "0003.png", "style": { "width": "20%", "left": "54%", "bottom": "100px" } },
+        { "src": "0004.png", "style": { "width": "15%", "left": "25%", "bottom": "50px" } },
+        { "src": "0005.png", "style": { "width": "15%", "left": "75%", "bottom": "30px" } },
+        { "src": "0006.png", "style": { "width": "15%", "left": "14%", "bottom": "250px" } },
+        { "src": "0007.png", "style": { "width": "15%", "left": "5%", "bottom": "5px" } }
      ]
     },
     {
@@ -30,7 +30,7 @@
         { "src": "layer1_0000.png", "style": { "width": "80%", "bottom": "-50px" } },
         { "src": "layer1_0001.png", "style": { "width": "80%", "right": "0", "bottom": "-40px" } },
         { "src": "layer1_0002.png", "style": { "width": "70%", "left": "0", "bottom": "0px" } },
-        { "src": "layer1_0003.png", "style": { "width": "20%", "left": "100px", "bottom": "50px" } }
+        { "src": "layer1_0003.png", "style": { "width": "20%", "left": "150px", "bottom": "50px" } }
      ]
     },
     {
@@ -45,8 +45,8 @@
       ],
     "description": "Rice seeds are first sown in a separate nursery area rather than directly in the main field. Here, they are provided with controlled water and nutrients, allowing them to grow into strong seedlings. This stage typically lasts 3 to 4 weeks. Growing seedlings separately helps farmers select the healthiest plants for transplantation, improving overall crop quality.",
     "images": [
-        { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-300px" } },
-        { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-450px" } },
+        { "src": "layer2_0000.png", "style": { "width": "80%", "bottom": "-350px" } },
+        { "src": "layer2_0001.png", "style": { "width": "100%", "right": "0", "bottom": "-500px" } },
         { "src": "layer2_0002.png", "style": { "width": "100%", "left": "0", "bottom": "-150px" }, "seq": true },
         { "src": "layer2_0003.png", "style": { "width": "50%", "right": "60px", "bottom": "50px" }, "seq": true  }
      ],
@@ -108,9 +108,9 @@
       "Sunlight: dry conditions preferred",
       "Process: cutting and separating grains"
       ],
-     "description": "Once the seedlings are ready, they are carefully removed from the nursery and replanted into flooded fields. Farmers place them in rows with consistent spacing, which allows each plant enough room to grow. This process is often done manually and requires time and precision. Transplanting ensures better control over plant density and contributes to higher yields.",
+     "description": "Rice is ready to harvest when the plants turn golden and the grains are fully mature. Before harvesting, fields are drained to make the process easier. The rice is then cut by hand or machine, and timing is important to ensure good yield and quality. \n\nAfter harvesting, the grains are separated from the stalks through threshing. This can be done manually or with machines. The goal is to remove the grains efficiently without damaging them, marking the transition from plant to usable rice.",
      "images": [
-        { "src": "0000.png", "style": { "width": "20%", "bottom": "80px", "right": "10%" } },
+        { "src": "0000.png", "style": { "width": "20%", "bottom": "120px", "right": "10%" } },
         { "src": "0001.png", "style": { "width": "100%", "right": "0", "bottom": "-160px" } },
         { "src": "0002.png", "style": { "width": "15%", "left": "10%", "bottom": "70px" } },
         { "src": "0003.png", "style": { "width": "20%", "right": "30%", "bottom": "0px" } }
@@ -126,7 +126,7 @@
          "Sunlight: strong, direct",
          "Process: separating grain from husk"
         ],
-     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
+     "description": "After threshing, the rice grains still contain husks and light impurities. Winnowing uses air or wind to separate these, allowing the lighter materials to be removed while the heavier grains fall back down. This improves the cleanliness of the rice. \n\nThe grains are then dried to reduce moisture levels and prevent spoilage. They are usually spread out under the sun for several days, depending on weather conditions. Proper drying is essential to preserve quality and extend storage life.",
      "images": [
         { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
         { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
@@ -144,19 +144,12 @@
          "Output: white or brown rice",
          "Storage: sealed for transport"
         ],
-     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
+     "description": "During milling, the outer husk and bran layers are removed from the rice grain, turning rough rice into edible white rice. The level of milling affects texture and nutritional value. This is the final processing step before distribution. \n\nAfter milling, the rice is sorted by size and quality, then packed into large sacks or bulk containers for storage and transport. These packages protect the rice from moisture and contamination during handling and shipping.",
      "images": [
-        { "src": "0000.png", "style": { "height": "45%", "width": "auto", "left": "1%", "bottom": "0px"  } },
-        { "src": "0001.png", "style": { "height": "45%", "width": "auto", "left": "14%", "bottom": "0px" } },
-        { "src": "0002.png", "style": { "height": "45%", "width": "auto", "left": "10%", "bottom":"0" } },
-        { "src": "0003.png", "style": { "height": "45%", "width": "auto", "left": "28%", "bottom":"0" } },
-        { "src": "0004.png", "style": { "height": "45%", "width": "auto", "left": "42%", "bottom":"0" } },
-        { "src": "0005.png", "style": { "height": "45%", "width": "auto", "left": "56%", "bottom":"0" } },
-        { "src": "0006.png", "style": { "height": "45%", "width": "auto", "left": "70%", "bottom":"0" } },
-        { "src": "0007.png", "style": { "height": "45%", "width": "auto", "left": "60%", "bottom":"0" } },
-        { "src": "0008.png", "style": { "height": "45%", "width": "auto", "left": "84%", "bottom":"0" } }
-      
-
+        { "src": "0000.png", "style": { "height": "45%", "width": "auto", "left": "20%", "bottom": "0px"  } },
+        { "src": "0001.png", "style": { "height": "45%", "width": "auto", "left": "1%", "bottom": "0px" } },
+        { "src": "0002.png", "style": { "height": "45%", "width": "auto", "left": "40%", "bottom":"0" } },
+        { "src": "0003.png", "style": { "height": "45%", "width": "auto", "left": "65%", "bottom":"0" } }
      ]
     },
     {
@@ -169,11 +162,15 @@
          "Use: cooking, daily meals",
          "Time: consumed in minutes"
         ],
-     "description": "OOnce the grains are separated, they still contain husks and other lightweight materials. Winnowing uses air or wind to remove these impurities. By tossing the grains into the air, lighter materials are blown away while the heavier rice grains fall back down. This process improves the cleanliness and quality of the rice.",
+     "description": "After harvest, rice is transported from mills to ports using trucks or trains. At the port, it is loaded into shipping containers and shipped across long distances by cargo vessels. This stage connects rice-producing regions to global markets and can take several weeks depending on the destination. \n\nWhen it arrives in countries like Belgium, it goes through customs and quality checks before being stored in warehouses. From there it is distributed to wholesalers, supermarkets, and shops. Rice is repackaged into smaller consumer sizes and becomes available for purchase and everyday use, completing its journey from field to plate.",
      "images": [
-        { "src": "0000.png", "style": { "width": "100%", "bottom": "-10px" } },
-        { "src": "0001.png", "style": { "width": "40%", "right": "-10px", "bottom": "0px" } },
-        { "src": "0002.png", "style": { "width": "30%", "left": "3%", "bottom":"0" } }
+        { "src": "0000.png", "style": { "height": "45%", "width": "auto", "left": "1%", "bottom": "0px"  } },
+        { "src": "0001.png", "style": { "height": "45%", "width": "auto", "left": "15%", "bottom": "0px" } },
+        { "src": "0002.png", "style": { "height": "45%", "width": "auto", "left": "30%", "bottom":"0" } },
+        { "src": "0003.png", "style": { "height": "45%", "width": "auto", "left": "45%", "bottom":"0" } },
+        { "src": "0004.png", "style": { "height": "45%", "width": "auto", "left": "60%", "bottom":"0" } },
+        { "src": "0005.png", "style": { "height": "45%", "width": "auto", "left": "75%", "bottom":"0" } },
+        { "src": "0006.png", "style": { "height": "45%", "width": "auto", "left": "90%", "bottom":"0" } }
 
      ]
     }

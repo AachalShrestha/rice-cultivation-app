@@ -68,14 +68,24 @@ createARScanner(riceSteps, sceneEl, (id) => {
 /* ---------------- SCENE ---------------- */
 function setScene(step) {
   stopAllAnimations();
-  
+  console.log(step)
   document.querySelector("#title").textContent = step.title;
   document.querySelector("#description").textContent = step.description;
    if(step.id != 0){
     console.log(step.id)
     document.querySelector("#number").textContent = step.id;
     document.querySelector("#days").textContent = step.days;
+    document.querySelector(".copy").style.left= "40px";
+    document.getElementById("title").style.fontSize = "56px";
+    document.getElementById("title").style.marginBottom = "20px";
+
   }
+  if(step.id == 0){
+    document.querySelector(".copy").style.left= "200px";
+    document.getElementById("title").style.fontSize = "90pt";
+    document.getElementById("title").style.marginBottom = "40px";
+  }
+  
  
 
   const conditionsDiv = document.querySelector("#conditions");

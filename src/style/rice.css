@@ -296,10 +296,12 @@ html, body {
 .zoom-container{
   display: flex;
   position: absolute;
-  font-size: 45pt;
+  font-size: 30px;
+  font-family: "Helvetica Neue", sans-serif;
   bottom: 50px;
   left: 40px;
-  gap:50px;
+  gap:20px;
+
   z-index: 100;
   -webkit-user-select: none; /* Safari */        
 -moz-user-select: none; /* Firefox */
@@ -309,5 +311,15 @@ user-select: none; /* Standard */
 
 .btn{
   cursor: pointer;
+  border: 1px solid black;
+  padding: 7px 12px 10px 12px;
+  border-radius: 100px;
+}
+#zoom-out{
+  padding: 7px 15px 10px 15px;
 }
 
+.btn:hover{
+  background-color: black;
+  color: white;
+}
