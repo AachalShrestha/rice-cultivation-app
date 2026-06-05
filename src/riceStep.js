@@ -21,8 +21,16 @@ let arSystem;
 let currentTarget;
 let arActive = false;
 
-const data = riceSteps.find((item) => item.id == Number(id));
-console.log(data)
+let dataId;
+
+if(Number(id) == 0){
+ dataId =1
+}else{
+  dataId =Number(id)
+}
+const data = riceSteps.find((item) => item.id == dataId);
+
+console.log(data);
 const sceneEl = document.querySelector("a-scene");
 
 const timeline = createTimelineRunner();
@@ -65,9 +73,13 @@ createARScanner(riceSteps, sceneEl, (id) => {
 }
 });
 
-/* ---------------- SCENE ---------------- */
 function setScene(step) {
-  const isIntro = step.id == 0;
+  // 👉 redirect 0 → 1
+  
+
+  console.log(step.id)
+  const isIntro = step.id == 0; // (this will now always be false btw 👀)
+
   const titleEl = document.querySelector("#title");
   const descEl = document.querySelector("#description");
   const numberEl = document.querySelector("#number");
@@ -75,39 +87,25 @@ function setScene(step) {
   const copyEl = document.querySelector(".copy");
   const conditionsDiv = document.querySelector("#conditions");
   const imagesDiv = document.querySelector(".images");
+
   stopAllAnimations();
-  console.log(step)
-// -------------------
-  // TEXT CONTENT
-  // -------------------
+
   titleEl.textContent = step.title;
   descEl.textContent = step.description;
 
-  numberEl.textContent = isIntro ? "" : step.id;
-  daysEl.textContent = isIntro ? "" : step.days;
+  numberEl.textContent = step.id;
+  daysEl.textContent = step.days;
 
-  // -------------------
-  // LAYOUT STYLES
-  // -------------------
-  copyEl.style.left = isIntro ? "200px" : "40px";
-
-  titleEl.style.fontSize = isIntro ? "90pt" : "56px";
-  titleEl.style.marginBottom = isIntro ? "40px" : "20px";
-
-  // -------------------
-  // CONDITIONS
-  // -------------------
+  // conditions
   conditionsDiv.innerHTML = "";
   step.conditions.forEach((c) => {
     const p = document.createElement("p");
     p.textContent = c;
     conditionsDiv.appendChild(p);
   });
-  
- 
 
-  const imagedDiv = document.querySelector(".images");
-  imagedDiv.innerHTML = "";
+  // images
+  imagesDiv.innerHTML = "";
 
   step.images.forEach(imgData => {
     const img = document.createElement("img");
@@ -120,20 +118,16 @@ function setScene(step) {
       ...imgData.style
     });
 
-    imagedDiv.appendChild(img);
+    imagesDiv.appendChild(img);
   });
 
   const objects = document.querySelectorAll(".object");
-
   startAnimation(objects);
 
-  /* 🔥 THIS IS THE MISSING PART (your main bug) */
   if (step.animation) {
-    console.log("animation exists")
-    timeline.run(step.animation, document.querySelector(".images"), step.id);
+    timeline.run(step.animation, imagesDiv, step.id);
   }
 }
-
 /* ---------------- AR BUTTON ---------------- */
 arBtn.addEventListener("click", () => {
   arActive = true;
