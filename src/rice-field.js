@@ -516,12 +516,12 @@ function resetTimer() {
   }, TIMEOUT);
 }
 
-["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(
+/* ["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(
   (event) => document.addEventListener(event, resetTimer)
 );
 
 resetTimer();
-
+ */
 /* --------------------------------------------------
    🍔 HAMBURGER MENU
 -------------------------------------------------- */

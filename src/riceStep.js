@@ -159,9 +159,9 @@ function resetTimer() {
   }, TIMEOUT);
 }
 // events that count as "activity"
-["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(event => {
+/* ["mousemove", "mousedown", "touchstart", "keydown", "scroll"].forEach(event => {
   document.addEventListener(event, resetTimer);
-});
+}); */
 
-// start timer on load
-resetTimer();
+/* // start timer on load
+resetTimer(); */
